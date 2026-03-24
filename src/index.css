@@ -15,3 +15,150 @@
     color: #e5e7eb;
   }
 }
+
+/* About page slider cards – distinct colors + patterns */
+.about-slider-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+
+.about-card-who {
+  background: linear-gradient(145deg, #3d2914 0%, #2c1f0f 50%, #1a1208 100%);
+}
+.about-card-who::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: radial-gradient(
+      circle at 70% 20%,
+      rgba(180, 130, 70, 0.15) 0%,
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 70% 20%,
+      rgba(180, 130, 70, 0.08) 0%,
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 70% 20%,
+      rgba(180, 130, 70, 0.05) 0%,
+      transparent 45%
+    );
+  pointer-events: none;
+}
+
+.about-card-mission {
+  background: linear-gradient(145deg, #0f172a 0%, #0c1322 50%, #070b14 100%);
+}
+.about-card-mission::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+      circle at 20% 80%,
+      rgba(59, 130, 246, 0.12) 0%,
+      transparent 22%
+    ),
+    radial-gradient(
+      circle at 80% 30%,
+      rgba(99, 102, 241, 0.08) 0%,
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 40% 50%,
+      rgba(148, 163, 184, 0.06) 0%,
+      transparent 35%
+    );
+  pointer-events: none;
+}
+
+.about-card-quality {
+  background: linear-gradient(145deg, #022c22 0%, #012019 50%, #001a14 100%);
+}
+.about-card-quality::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(16, 185, 129, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+.about-card-quality::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 50% at 90% 50%,
+    rgba(20, 184, 166, 0.08) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+/* About page – full-page gradient background */
+.about-page-bg {
+  background: linear-gradient(180deg, #020617 0%, #0f172a 25%, #0c1222 50%, #071018 75%, #020617 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+.about-page-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 80% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 45%),
+    radial-gradient(ellipse 70% 50% at 20% 80%, rgba(99, 102, 241, 0.06) 0%, transparent 40%);
+  pointer-events: none;
+}
+.about-page-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 70%);
+  pointer-events: none;
+}
+
+/* About – What Can EIG Do section (no own bg; uses page gradient) */
+.about-eig-do-section {
+  position: relative;
+}
+
+.about-eig-do-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+    0 4px 24px rgba(0, 0, 0, 0.25),
+    0 0 40px -8px rgba(59, 130, 246, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.about-eig-do-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 56px -6px rgba(59, 130, 246, 0.12);
+}
+.about-eig-do-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  border-radius: inherit;
+  opacity: 0.7;
+}

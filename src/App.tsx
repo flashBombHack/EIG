@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import heroBg from './assets/hero-bg.png'
 // Place your white logo file at: src/assets/logo-white.png
 // and this import will pick it up. You can rename as needed.
 import logoWhite from './assets/logo-white.png'
-import imgInsight from './assets/img2.png'
+import security3 from './assets/security3.jpeg'
 import secondSectionBg from './assets/second-section-BG.png'
+import Footer from './components/Footer'
 
 const easing: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -40,8 +42,16 @@ const navItem = {
   }),
 }
 
+const navItems = [
+  { label: 'Home', path: '/' },
+  { label: 'About Us', path: '/about' },
+  { label: 'Services', path: '/services' },
+  { label: 'Contact', path: '/contact' },
+]
+
 function App() {
   const [isSticky, setIsSticky] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -127,11 +137,13 @@ function App() {
             variants={fadeUp}
             className="flex items-center gap-3"
           >
-            <img
-              src={logoWhite}
-              alt="EIG Security"
-              className="h-14 md:h-16 w-auto"
-            />
+            <Link to="/">
+              <img
+                src={logoWhite}
+                alt="EIG Security"
+                className="h-14 md:h-16 w-auto"
+              />
+            </Link>
           </motion.div>
 
           <motion.nav
@@ -139,34 +151,37 @@ function App() {
             animate="visible"
             className="hidden md:flex items-center gap-8 text-sm font-medium bg-white/10 border border-white/10 rounded-full px-3 py-1.5 backdrop-blur-md"
           >
-            {['Home', 'About Us', 'Services', 'Contact'].map((item, index) => (
-              <motion.button
-                key={item}
-                variants={navItem}
-                initial="hidden"
-                animate="visible"
-                custom={index}
-                className={`px-4 py-1.5 rounded-full transition-colors ${
-                  index === 0
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-100/80 hover:text-white'
-                }`}
-              >
-                {item}
-              </motion.button>
+            {navItems.map((item, index) => (
+              <motion.div key={item.label} variants={navItem} initial="hidden" animate="visible" custom={index}>
+                <Link
+                  to={item.path}
+                  className={`block px-4 py-1.5 rounded-full transition-colors ${
+                    location.pathname === item.path
+                      ? 'bg-white text-slate-900 shadow-sm'
+                      : 'text-slate-100/80 hover:text-white'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              </motion.div>
             ))}
           </motion.nav>
 
-          <motion.button
-            initial="hidden"
-            animate="visible"
-            custom={0.25}
-            variants={fadeUp}
+          <Link
+            to="/contact"
             className="hidden md:inline-flex items-center rounded-full border border-white/30 bg-white text-slate-900 text-sm font-semibold px-4 py-2 shadow-sm shadow-white/40 hover:bg-slate-100 transition-colors"
           >
-            Get In Touch
-            <span className="ml-1.5 text-base">↗</span>
-          </motion.button>
+            <motion.span
+              initial="hidden"
+              animate="visible"
+              custom={0.25}
+              variants={fadeUp}
+              className="inline-flex items-center"
+            >
+              Get In Touch
+              <span className="ml-1.5 text-base">↗</span>
+            </motion.span>
+          </Link>
         </div>
       </header>
 
@@ -322,7 +337,7 @@ function App() {
               className="relative overflow-hidden rounded-3xl bg-slate-900 text-white shadow-2xl shadow-slate-900/25"
             >
               <img
-                src={imgInsight}
+                src={security3}
                 alt="EIG leadership and operations"
                 className="h-full w-full object-cover"
               />
@@ -631,112 +646,7 @@ function App() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-eig-accent text-white pb-10 pt-10 md:pt-12">
-        <div className="mx-auto max-w-6xl px-6 md:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="px-0 py-0 md:px-0 md:py-0"
-          >
-            <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
-              {/* Left: logo + tagline + CTA */}
-              <div className="space-y-5 max-w-sm">
-                <div className="flex items-center gap-3">
-                  <img
-                    src={logoWhite}
-                    alt="EIG Security"
-                    className="h-14 w-auto"
-                  />
-                </div>
-                <p className="text-sm text-slate-100/85">
-                  EIG backs retailers, construction partners, and organizations that take loss
-                  prevention and safety seriously — with guard programs built for the real world.
-                </p>
-                <button className="inline-flex items-center justify-center rounded-full border border-white/40 text-sm font-medium px-5 py-2.5 text-slate-100/90 bg-white/5 hover:bg-white/10 backdrop-blur-md transition-colors">
-                  Get in touch
-                  <span className="ml-1.5 text-base">↗</span>
-                </button>
-              </div>
-
-              {/* Middle: navigation */}
-              <div className="flex-1 grid gap-8 sm:grid-cols-2 md:grid-cols-3 text-sm">
-                <div className="space-y-2">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">
-                    Company
-                  </p>
-                  <button className="block text-left text-slate-100/85 hover:text-white">
-                    Home
-                  </button>
-                  <button className="block text-left text-slate-100/85 hover:text-white">
-                    About
-                  </button>
-                  <button className="block text-left text-slate-100/85 hover:text-white">
-                    Services
-                  </button>
-                  <button className="block text-left text-slate-100/85 hover:text-white">
-                    Contact
-                  </button>
-                </div>
-
-                <div className="space-y-2">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">
-                    Resources
-                  </p>
-                  <button className="block text-left text-slate-100/85 hover:text-white">
-                    Guard programs
-                  </button>
-                  <button className="block text-left text-slate-100/85 hover:text-white">
-                    Loss prevention
-                  </button>
-                  <button className="block text-left text-slate-100/85 hover:text-white">
-                    Private investigations
-                  </button>
-                </div>
-
-                <div className="space-y-2">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">
-                    Contact
-                  </p>
-                  <p className="text-slate-100/85 text-sm">
-                    info@eigsecurity.com
-                    <br />
-                    Ontario, Canada
-                  </p>
-                  <div className="flex items-center gap-3 pt-2">
-                    {['in', 'x', 'ig'].map((abbr) => (
-                      <button
-                        key={abbr}
-                        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/35 bg-white/5 text-[11px] font-semibold uppercase tracking-wide text-slate-100/90 hover:bg-white/15 transition-colors"
-                      >
-                        {abbr}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom row */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-4 text-xs text-slate-300 md:flex-row md:items-center md:justify-between"
-            >
-              <p>© {new Date().getFullYear()} EIG Security. All rights reserved.</p>
-              <div className="flex flex-wrap gap-4">
-                <button className="text-slate-300 hover:text-white">Terms of use</button>
-                <button className="text-slate-300 hover:text-white">Privacy policy</button>
-                <button className="text-slate-300 hover:text-white">Back to top ↑</button>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
