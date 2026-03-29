@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import heroBg from './assets/hero-bg.png'
-// Place your white logo file at: src/assets/logo-white.png
-// and this import will pick it up. You can rename as needed.
-import logoWhite from './assets/logo-white.png'
 import security3 from './assets/security3.jpeg'
 import secondSectionBg from './assets/second-section-BG.png'
 import Footer from './components/Footer'
+import SiteHeader from './components/SiteHeader'
 
 const easing: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -24,44 +22,7 @@ const fadeUp = {
   }),
 }
 
-const navItem = {
-  hidden: (index: number) => ({
-    opacity: 0,
-    x: -32 - index * 8,
-    scale: 0.96,
-  }),
-  visible: (index: number) => ({
-    opacity: 1,
-    x: 0,
-    scale: 1,
-    transition: {
-      duration: 0.55,
-      delay: 0.15 + index * 0.07,
-      ease: easing,
-    },
-  }),
-}
-
-const navItems = [
-  { label: 'Home', path: '/' },
-  { label: 'About Us', path: '/about' },
-  { label: 'Services', path: '/services' },
-  { label: 'Contact', path: '/contact' },
-]
-
 function App() {
-  const [isSticky, setIsSticky] = useState(false)
-  const location = useLocation()
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsSticky(window.scrollY > 40)
-    }
-
-    handleScroll()
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
   const growthBars = [
     {
@@ -93,97 +54,49 @@ function App() {
     },
   ]
 
-  const guardServices = [
+  const serviceAccordion = [
     {
-      label: 'Security Guards',
-      icon: 'shield',
+      id: 'uniformed',
+      title: 'Uniformed security',
+      items: [
+        'Security guards',
+        'Mobile patrol security',
+        'Event security',
+        'Construction site security',
+        'Fire protection & confined space monitoring',
+        'Traffic control services',
+      ],
+      link: { to: '/services#uniformed-guard-protection', label: 'View uniformed service details' },
     },
     {
-      label: 'Mobile Patrol Security',
-      icon: 'car',
+      id: 'undercover',
+      title: 'Undercover security',
+      items: [
+        'Undercover asset protection',
+        'Surveillance, apprehensions & trend intelligence',
+        'Employee, vendor & integrity-focused programs',
+        'Coordination with site leadership and authorities',
+      ],
+      link: { to: '/services#undercover-asset-protection', label: 'View undercover service details' },
     },
     {
-      label: 'Event security',
-      icon: 'star',
+      id: 'drone',
+      title: 'Drone surveillance',
+      items: [
+        'Licensed operators & compliant flight operations',
+        'Live aerial monitoring & rapid situational awareness',
+        'Photo & video documentation for incidents and reporting',
+        'Ideal for large footprints, events, and after-hours visibility',
+      ],
+      link: { to: '/services#drone-surveillance', label: 'View drone service details' },
     },
-    {
-      label: 'Construction site security',
-      icon: 'cone',
-    },
-    {
-      label: 'Fire Protection and Confined Space Monitoring',
-      icon: 'alert',
-    },
-    {
-      label: 'Traffic Control Services',
-      icon: 'lanes',
-    },
-  ]
+  ] as const
+
+  const [openServiceId, setOpenServiceId] = useState<string | null>('uniformed')
 
   return (
     <div className="min-h-screen bg-eig-bg text-white">
-      {/* Top nav */}
-      <header
-        className={`fixed inset-x-0 top-0 pt-5 md:pt-7 z-50 transition-all duration-300 ${
-          isSticky
-            ? 'bg-gradient-to-b from-black/90 via-black/60 to-transparent backdrop-blur-sm'
-            : 'bg-transparent'
-        }`}
-      >
-        <div className="flex items-center justify-between px-6 md:px-10">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="flex items-center gap-3"
-          >
-            <Link to="/">
-              <img
-                src={logoWhite}
-                alt="EIG Security"
-                className="h-14 md:h-16 w-auto"
-              />
-            </Link>
-          </motion.div>
-
-          <motion.nav
-            initial="hidden"
-            animate="visible"
-            className="hidden md:flex items-center gap-8 text-sm font-medium bg-white/10 border border-white/10 rounded-full px-3 py-1.5 backdrop-blur-md"
-          >
-            {navItems.map((item, index) => (
-              <motion.div key={item.label} variants={navItem} initial="hidden" animate="visible" custom={index}>
-                <Link
-                  to={item.path}
-                  className={`block px-4 py-1.5 rounded-full transition-colors ${
-                    location.pathname === item.path
-                      ? 'bg-white text-slate-900 shadow-sm'
-                      : 'text-slate-100/80 hover:text-white'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              </motion.div>
-            ))}
-          </motion.nav>
-
-          <Link
-            to="/contact"
-            className="hidden md:inline-flex items-center rounded-full border border-white/30 bg-white text-slate-900 text-sm font-semibold px-4 py-2 shadow-sm shadow-white/40 hover:bg-slate-100 transition-colors"
-          >
-            <motion.span
-              initial="hidden"
-              animate="visible"
-              custom={0.25}
-              variants={fadeUp}
-              className="inline-flex items-center"
-            >
-              Get In Touch
-              <span className="ml-1.5 text-base">↗</span>
-            </motion.span>
-          </Link>
-        </div>
-      </header>
+      <SiteHeader scrollReactive />
 
       <div className="relative h-screen w-full overflow-hidden bg-black/60">
         <div
@@ -239,13 +152,19 @@ function App() {
                   variants={fadeUp}
                   className="flex flex-wrap items-center gap-4"
                 >
-                  <button className="inline-flex items-center justify-center rounded-full border border-white/30 bg-white text-slate-900 text-sm font-semibold px-5 py-2.5 shadow-sm shadow-white/40 hover:bg-slate-100 transition-colors">
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center justify-center rounded-full border border-white/30 bg-white text-slate-900 text-sm font-semibold px-5 py-2.5 shadow-sm shadow-white/40 hover:bg-slate-100 transition-colors"
+                  >
                     Get In Touch
                     <span className="ml-1.5 text-base">↗</span>
-                  </button>
-                  <button className="inline-flex items-center justify-center rounded-full border border-white/40 text-sm font-medium px-5 py-2.5 text-slate-100/90 bg-white/5 hover:bg-white/10 backdrop-blur-md transition-colors">
-                    Our Portfolio
-                  </button>
+                  </Link>
+                  <Link
+                    to="/services"
+                    className="inline-flex items-center justify-center rounded-full border border-white/40 text-sm font-medium px-5 py-2.5 text-slate-100/90 bg-white/5 hover:bg-white/10 backdrop-blur-md transition-colors"
+                  >
+                    Our Services
+                  </Link>
                 </motion.div>
               </div>
 
@@ -261,17 +180,17 @@ function App() {
                     ease: [0.16, 1, 0.3, 1],
                   },
                 }}
-                className="justify-self-end"
+                className="justify-self-start md:justify-self-end"
               >
                 <div className="w-64 sm:w-72 rounded-3xl bg-slate-900/70 border border-white/10 p-5 sm:p-6 backdrop-blur-xl shadow-[0_32px_90px_rgba(0,0,0,0.9)]">
                   <p className="text-xs font-medium uppercase tracking-[0.25em] text-slate-400">
                     Proven Results
                   </p>
-                  <p className="mt-3 text-4xl font-semibold text-white">7x</p>
+                  <p className="mt-3 text-4xl font-semibold text-white">3x</p>
                   <p className="mt-2 text-xs text-slate-300/90">
-                    Our real recovery rate is over seven times the industry
-                    average, with 200+ apprehensions and 1000+ preventions per
-                    officer each year.
+                    Our recovery rate is over three times the industry average,
+                    with 200+ apprehensions and 1000+ preventions per officer
+                    each year.
                   </p>
                 </div>
               </motion.div>
@@ -327,59 +246,92 @@ function App() {
             </p>
           </motion.div>
 
-          <div className="mt-10 md:mt-14 grid gap-8 md:grid-cols-[minmax(0,1.05fr)_minmax(0,1.1fr)] items-stretch">
-            {/* Left: image + overlay card */}
+          <div className="mt-10 md:mt-14 grid gap-8 md:grid-cols-[minmax(0,1.05fr)_minmax(0,1.1fr)] md:items-start">
+            {/* Left: image + overlay card (overlay on md+; mobile: image then stats below) */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="relative overflow-hidden rounded-3xl bg-slate-900 text-white shadow-2xl shadow-slate-900/25"
+              className="flex flex-col gap-0 shadow-2xl shadow-slate-900/25"
             >
-              <img
-                src={security3}
-                alt="EIG leadership and operations"
-                className="h-full w-full object-cover"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-slate-900 md:aspect-auto md:min-h-[min(420px,52vh)]">
+                <img
+                  src={security3}
+                  alt="EIG leadership and operations"
+                  className="h-full w-full object-cover"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 to-transparent md:hidden" />
+                <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-t from-black/80 via-black/20 to-transparent md:block" />
 
-              <div className="absolute bottom-5 left-5 right-5 md:bottom-6 md:left-6 md:right-6 space-y-3">
-                <div className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-slate-200 backdrop-blur-md">
+                <div className="absolute bottom-5 left-5 right-5 hidden space-y-3 text-white md:bottom-6 md:left-6 md:right-6 md:block">
+                  <div className="inline-flex rounded-full bg-black/35 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-white backdrop-blur-md [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
+                    Our results over time
+                  </div>
+                  <div className="rounded-2xl border border-white/50 bg-black/35 px-4 py-3 backdrop-blur-md flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 md:px-5 md:py-4 [box-shadow:inset_0_1px_0_rgba(255,255,255,0.12)]">
+                    <div className="max-w-xs">
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.55)]">
+                        Field‑tested performance
+                      </p>
+                      <p className="mt-1 text-xs text-white/90 [text-shadow:0_1px_2px_rgba(0,0,0,0.4)]">
+                        Recovery rates and prevented incidents that consistently
+                        outperform standard security providers.
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-6">
+                      <div>
+                        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.55)]">
+                          Recovery Rate
+                        </p>
+                        <p className="mt-1 text-2xl font-semibold text-white [text-shadow:0_1px_4px_rgba(0,0,0,0.5)]">
+                          7x
+                        </p>
+                        <p className="mt-0.5 text-xs text-white/85 [text-shadow:0_1px_2px_rgba(0,0,0,0.4)]">
+                          Higher recovery vs. industry average.
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.55)]">
+                          Prevented Incidents
+                        </p>
+                        <p className="mt-1 text-2xl font-semibold text-white [text-shadow:0_1px_4px_rgba(0,0,0,0.5)]">
+                          1000+
+                        </p>
+                        <p className="mt-0.5 text-xs text-white/85 [text-shadow:0_1px_2px_rgba(0,0,0,0.4)]">
+                          Proactive interventions across partner sites each year.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile: stats on light background so the photo stays visible */}
+              <div className="mt-4 space-y-3 rounded-2xl border border-slate-200/90 bg-white/90 p-4 shadow-sm md:hidden">
+                <div className="inline-flex rounded-full bg-slate-900/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-slate-600">
                   Our results over time
                 </div>
-                <div className="rounded-2xl border border-white/40 bg-white/10 px-4 py-3 md:px-5 md:py-4 backdrop-blur-md flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                  <div className="max-w-xs">
-                    <p className="text-xs uppercase tracking-[0.22em] text-slate-400">
-                      Field‑tested performance
-                    </p>
-                    <p className="mt-1 text-[11px] md:text-xs text-slate-300">
-                      Recovery rates and prevented incidents that consistently
-                      outperform standard security providers.
-                    </p>
+                <div>
+                  <p className="text-xs uppercase tracking-[0.22em] text-slate-500">
+                    Field‑tested performance
+                  </p>
+                  <p className="mt-1 text-xs text-slate-600">
+                    Recovery rates and prevented incidents that consistently outperform standard security
+                    providers.
+                  </p>
+                </div>
+                <div className="flex gap-8 border-t border-slate-200/80 pt-3">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Recovery Rate</p>
+                    <p className="mt-0.5 text-2xl font-semibold text-slate-900">7x</p>
+                    <p className="mt-0.5 text-xs text-slate-600">Higher recovery vs. industry average.</p>
                   </div>
-                  <div className="flex items-center gap-6">
-                    <div>
-                      <p className="text-sm uppercase tracking-[0.2em] text-slate-400">
-                        Recovery Rate
-                      </p>
-                      <p className="mt-1 text-2xl font-semibold text-white">
-                        7x
-                      </p>
-                      <p className="mt-0.5 text-[11px] text-slate-300">
-                        Higher recovery vs. industry average.
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm uppercase tracking-[0.2em] text-slate-400">
-                        Prevented Incidents
-                      </p>
-                      <p className="mt-1 text-2xl font-semibold text-white">
-                        1000+
-                      </p>
-                      <p className="mt-0.5 text-[11px] text-slate-300">
-                        Proactive interventions across partner sites each year.
-                      </p>
-                    </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Prevented Incidents</p>
+                    <p className="mt-0.5 text-2xl font-semibold text-slate-900">1000+</p>
+                    <p className="mt-0.5 text-xs text-slate-600">
+                      Proactive interventions across partner sites each year.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -415,50 +367,50 @@ function App() {
                     <p className="mt-1 text-xl font-semibold text-slate-900">
                       40+
                     </p>
-                    <p className="mt-1 text-[11px] text-slate-600">
+                    <p className="mt-1 text-xs text-slate-600">
                       Retail &amp; logistics sites under active coverage.
                     </p>
                   </div>
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                      Regions
+                      Scalability
                     </p>
                     <p className="mt-1 text-xl font-semibold text-slate-900">
-                      3
+                      Flexible
                     </p>
-                    <p className="mt-1 text-[11px] text-slate-600">
-                      GTA, Western Canada, and cross‑border corridors.
+                    <p className="mt-1 text-xs text-slate-600">
+                      Scope and staffing adjust as your operations scale—without locking you into a fixed footprint.
                     </p>
                   </div>
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
                       Mobile units
                     </p>
-                    <p className="mt-1 text-xl font-semibold text-slate-900">
-                      24/7
+                    <p className="mt-1 text-base md:text-lg font-semibold text-slate-900 leading-snug">
+                      Available 7 days a week
                     </p>
-                    <p className="mt-1 text-[11px] text-slate-600">
-                      Rapid response teams on call every hour of the day.
+                    <p className="mt-1 text-xs text-slate-600">
+                      Rapid response teams ready when your sites need coverage.
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-4 flex flex-wrap gap-2 text-[11px] md:text-xs text-slate-600">
+                <div className="mt-4 flex flex-wrap gap-2 text-xs text-slate-600">
                   <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/5 px-2.5 py-1">
                     <span className="h-1.5 w-1.5 rounded-full bg-eig-accent" />
-                    GTA &amp; Southern Ontario
+                    Multi‑site programs
                   </span>
                   <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/5 px-2.5 py-1">
                     <span className="h-1.5 w-1.5 rounded-full bg-eig-accent/80" />
-                    Western Canada partners
+                    Growing partner footprint
                   </span>
                   <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/5 px-2.5 py-1">
                     <span className="h-1.5 w-1.5 rounded-full bg-eig-accent/70" />
-                    Cross‑border logistics sites
+                    Flexible deployment
                   </span>
                   <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/5 px-2.5 py-1">
                     <span className="h-1.5 w-1.5 rounded-full bg-slate-500" />
-                    24/7 mobile response coverage
+                    Available 7 days a week — coordination &amp; response
                   </span>
                 </div>
               </motion.div>
@@ -486,7 +438,7 @@ function App() {
                 <div className="mt-4 space-y-3 text-xs md:text-sm text-slate-700">
                   {growthBars.map((bar) => (
                     <div key={bar.year} className="flex items-center gap-3">
-                      <div className="w-14 text-[11px] font-medium text-slate-500">
+                      <div className="w-14 text-xs font-medium text-slate-500">
                         {bar.year}
                       </div>
                       <div className="flex-1 h-2 rounded-full bg-slate-200 overflow-hidden">
@@ -494,11 +446,11 @@ function App() {
                           className={`h-full rounded-full bg-eig-accent ${bar.heightClass}`}
                         />
                       </div>
-                      <div className="w-12 text-right text-[11px] font-semibold text-slate-900">
+                      <div className="w-12 text-right text-xs font-semibold text-slate-900">
                         {bar.value}
                       </div>
                       {bar.isHighlight && (
-                        <span className="ml-1 rounded-full bg-slate-900 text-[10px] font-semibold text-white px-2 py-0.5">
+                        <span className="ml-1 rounded-full bg-slate-900 text-xs font-semibold text-white px-2 py-0.5">
                           {bar.tag}
                         </span>
                       )}
@@ -568,7 +520,7 @@ function App() {
           >
             <div className="max-w-xl space-y-4">
               <p className="text-sm font-semibold tracking-[0.2em] uppercase text-white/70">
-                Uniformed Guard Protection
+                Services overview
               </p>
               <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-white">
                 Our approach
@@ -586,60 +538,73 @@ function App() {
                 We focus on prevention, de‑escalation, and detailed documentation so you can
                 demonstrate due diligence and keep your teams safe.
               </p>
-              <button className="mt-4 inline-flex items-center justify-center rounded-full border border-white/40 text-sm font-medium px-5 py-2.5 text-slate-100/90 bg-white/5 hover:bg-white/10 backdrop-blur-md transition-colors">
+              <Link
+                to="/services"
+                className="mt-4 inline-flex items-center justify-center rounded-full border border-white/40 text-sm font-medium px-5 py-2.5 text-slate-100/90 bg-white/5 hover:bg-white/10 backdrop-blur-md transition-colors"
+              >
                 Discover more
                 <span className="ml-1.5 text-base">↗</span>
-              </button>
+              </Link>
             </div>
           </motion.div>
 
-          {/* Tab list */}
+          {/* Three service pillars — expand to see sub-lines */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-10 md:mt-14 rounded-3xl border border-white/20 bg-white/5 overflow-hidden shadow-[0_18px_60px_rgba(15,23,42,0.25)] backdrop-blur-md"
+            className="mt-10 md:mt-14 space-y-3"
           >
-            {guardServices.map((item, index) => {
-              const isActive = index === 0
+            {serviceAccordion.map((cat) => {
+              const isOpen = openServiceId === cat.id
               return (
-                <button
-                  key={item.label}
-                  type="button"
-                  className={`group w-full flex items-center justify-between gap-6 px-4 sm:px-6 md:px-8 py-4 md:py-5 text-left transition-colors ${
-                    isActive ? 'bg-eig-accent text-white' : 'bg-white/40 hover:bg-slate-50'
-                  } ${index !== guardServices.length - 1 ? 'border-b border-slate-200/80' : ''}`}
+                <div
+                  key={cat.id}
+                  className={`overflow-hidden rounded-2xl border border-white/20 shadow-[0_18px_60px_rgba(15,23,42,0.25)] backdrop-blur-md transition-colors ${
+                    isOpen ? 'bg-white text-slate-900' : 'bg-white/10 text-white hover:bg-white/15'
+                  }`}
                 >
-                  <div className="flex items-center gap-4 sm:gap-5">
-                    <div
-                      className={`flex h-9 w-9 items-center justify-center rounded-full border text-xs font-medium ${
-                        isActive
-                          ? 'border-white/70 bg-white/10 text-white'
-                          : 'border-eig-accent/30 bg-eig-accent/5 text-eig-accent group-hover:border-eig-accent group-hover:bg-eig-accent/10'
-                      }`}
-                    >
-                      {/* Simple icon hint using first letter */}
-                      {item.label.charAt(0)}
-                    </div>
-                    <p
-                      className={`text-sm sm:text-base font-semibold ${
-                        isActive ? 'text-white' : 'text-slate-900 group-hover:text-slate-900'
-                      }`}
-                    >
-                      {item.label}
-                    </p>
-                  </div>
-
-                  <span
-                    className={`shrink-0 text-xs font-medium ${
-                      isActive ? 'text-slate-100/90' : 'text-slate-400 group-hover:text-slate-600'
-                    }`}
+                  <button
+                    type="button"
+                    onClick={() => setOpenServiceId((prev) => (prev === cat.id ? null : cat.id))}
+                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left md:px-6 md:py-5"
                   >
-                    {/* right arrow indicator */}
-                    →
-                  </span>
-                </button>
+                    <span className="text-xs font-semibold uppercase tracking-[0.2em] md:text-sm">
+                      {cat.title}
+                    </span>
+                    <span
+                      className={`shrink-0 text-lg transition-transform duration-200 ${
+                        isOpen ? 'rotate-180 text-slate-500' : 'text-white/80'
+                      }`}
+                      aria-hidden
+                    >
+                      ⌄
+                    </span>
+                  </button>
+                  {isOpen && (
+                    <div
+                      className="border-t border-slate-200/90 bg-white px-5 pb-5 pt-1 md:px-6"
+                    >
+                      <ul className="mt-3 space-y-2.5 text-sm text-slate-700">
+                        {cat.items.map((line) => (
+                          <li key={line} className="flex gap-2">
+                            <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-eig-accent" />
+                            <span>{line}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      {'link' in cat && cat.link && (
+                        <Link
+                          to={cat.link.to}
+                          className="mt-4 inline-flex items-center text-sm font-semibold text-eig-accent hover:underline"
+                        >
+                          {cat.link.label} <span className="ml-1">→</span>
+                        </Link>
+                      )}
+                    </div>
+                  )}
+                </div>
               )
             })}
           </motion.div>

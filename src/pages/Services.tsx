@@ -1,12 +1,13 @@
+import { useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
-import logoWhite from '../assets/logo-white.png'
 import droneBg from '../assets/droneBG.png'
 import security1 from '../assets/security1.jpeg'
 import security2 from '../assets/security2.jpeg'
 import security4 from '../assets/security4.jpeg'
 import security5 from '../assets/security5.jpeg'
 import Footer from '../components/Footer'
+import SiteHeader from '../components/SiteHeader'
 
 const easing: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -131,54 +132,42 @@ function GuardIcon({ name }: { name: string }) {
 }
 
 export default function Services() {
+  const location = useLocation()
+
+  useEffect(() => {
+    if (!location.hash) return
+    const id = location.hash.replace('#', '')
+    const el = document.getElementById(id)
+    if (!el) return
+    const t = window.setTimeout(() => {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 80)
+    return () => window.clearTimeout(t)
+  }, [location.pathname, location.hash])
+
   return (
-    <div className="min-h-screen bg-eig-bg text-white">
-      <header className="fixed inset-x-0 top-0 z-50 bg-gradient-to-b from-black/90 via-black/60 to-transparent backdrop-blur-sm pt-5 md:pt-7">
-        <div className="flex items-center justify-between px-6 md:px-10">
-          <Link to="/" className="flex items-center gap-3">
-            <img src={logoWhite} alt="EIG Security" className="h-14 md:h-16 w-auto" />
-          </Link>
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium bg-white/10 border border-white/10 rounded-full px-3 py-1.5 backdrop-blur-md">
-            <Link to="/" className="px-4 py-1.5 rounded-full text-slate-100/80 hover:text-white transition-colors">
-              Home
-            </Link>
-            <Link to="/about" className="px-4 py-1.5 rounded-full text-slate-100/80 hover:text-white transition-colors">
-              About Us
-            </Link>
-            <Link to="/services" className="px-4 py-1.5 rounded-full bg-white text-slate-900 shadow-sm">
-              Services
-            </Link>
-            <Link to="/contact" className="px-4 py-1.5 rounded-full text-slate-100/80 hover:text-white transition-colors">
-              Contact
-            </Link>
-          </nav>
-          <Link
-            to="/contact"
-            className="hidden md:inline-flex items-center rounded-full border border-white/30 bg-white text-slate-900 text-sm font-semibold px-4 py-2 shadow-sm hover:bg-slate-100 transition-colors"
-          >
-            Get In Touch <span className="ml-1.5 text-base">↗</span>
-          </Link>
-        </div>
-      </header>
+    <div className="min-h-screen overflow-x-hidden bg-eig-bg text-white">
+      <SiteHeader />
 
       <main className="pt-0 pb-20 px-0 md:px-0">
         {/* Section 1: Drone-style services hub */}
         <motion.section
+          id="drone-surveillance"
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: easing }}
-          className="relative mb-24 md:mb-32"
+          className="relative mb-24 scroll-mt-28 md:scroll-mt-32 md:mb-32"
         >
           <div className="relative min-h-screen w-full overflow-hidden bg-black/60">
             <div
-              className="absolute inset-0 bg-center bg-cover scale-105"
+              className="absolute inset-0 bg-center bg-cover md:scale-105"
               style={{ backgroundImage: `url(${droneBg})` }}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/75 to-slate-950/35" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(96,165,250,0.25),_transparent_55%)]" />
 
-            <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-10 pt-28 pb-24 md:pt-32 md:pb-28 lg:pt-40 lg:pb-32 grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] items-center">
+            <div className="relative z-10 mx-auto grid max-w-6xl min-w-0 gap-10 px-6 pt-28 pb-24 md:px-10 md:pt-32 md:pb-28 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:pt-40 lg:pb-32 items-center">
               {/* Left: headline + CTAs */}
               <div className="space-y-6 max-w-xl">
                 <p className="text-sm font-medium tracking-[0.2em] uppercase text-slate-300/80">
@@ -195,11 +184,16 @@ export default function Services() {
                 </p>
 
                 <div className="flex flex-wrap items-center gap-4">
-                  <button className="inline-flex items-center justify-center rounded-full bg-orange-500 px-6 py-2.5 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(249,115,22,0.55)] hover:bg-orange-400 transition-colors">
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center justify-center rounded-full bg-orange-500 px-6 py-2.5 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(249,115,22,0.55)] hover:bg-orange-400 transition-colors"
+                  >
                     Book a Drone Assessment
-                  </button>
-                  <div className="flex items-baseline gap-2 text-xs md:text-sm text-slate-200/85">
-                    <span className="text-lg md:text-2xl font-semibold text-white">24/7</span>
+                  </Link>
+                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-xs md:text-sm text-slate-200/85">
+                    <span className="text-base md:text-lg font-semibold text-white leading-tight">
+                      Available 7 days a week
+                    </span>
                     <span>
                       Aerial visibility and rapid
                       <br className="hidden sm:block" /> response support
@@ -209,7 +203,7 @@ export default function Services() {
               </div>
 
               {/* Right: futuristic stats pod */}
-              <div className="relative lg:self-end lg:mb-6">
+              <div className="relative min-w-0 overflow-hidden lg:overflow-visible lg:self-end lg:mb-6">
                 <div className="relative rounded-3xl border border-white/12 bg-white/8 backdrop-blur-2xl px-5 py-5 md:px-7 md:py-7 shadow-[0_30px_80px_rgba(0,0,0,0.85)]">
                   <div className="flex items-center justify-between gap-4 mb-4">
                     <div>
@@ -220,45 +214,45 @@ export default function Services() {
                         Live surveillance status
                       </p>
                     </div>
-                    <div className="flex items-center gap-2 text-[11px] text-slate-200/80">
+                    <div className="flex items-center gap-2 text-xs text-slate-200/80">
                       <span className="inline-flex h-7 items-center rounded-full bg-slate-900/70 px-3 backdrop-blur">
                         Flight Ready
                       </span>
                     </div>
                   </div>
 
-                  <div className="mt-4 grid grid-cols-3 gap-3 text-[11px] md:text-xs">
+                  <div className="mt-4 grid grid-cols-3 gap-3 text-xs">
                     <div className="rounded-2xl border border-white/10 bg-slate-950/60 px-3 py-3 flex flex-col gap-1">
-                      <p className="text-[10px] uppercase tracking-[0.18em] text-slate-400">Range</p>
+                      <p className="text-xs uppercase tracking-[0.18em] text-slate-400">Range</p>
                       <p className="text-lg font-semibold text-white">Wide</p>
                       <p className="text-slate-400">Large properties scanned fast</p>
                     </div>
                     <div className="rounded-2xl border border-white/10 bg-slate-950/60 px-3 py-3 flex flex-col gap-1">
-                      <p className="text-[10px] uppercase tracking-[0.18em] text-slate-400">Feed</p>
+                      <p className="text-xs uppercase tracking-[0.18em] text-slate-400">Feed</p>
                       <p className="text-lg font-semibold text-white">Live</p>
                       <p className="text-slate-400">Real-time situational awareness</p>
                     </div>
                     <div className="rounded-2xl border border-emerald-400/40 bg-emerald-500/10 px-3 py-3 flex flex-col gap-1">
-                      <p className="text-[10px] uppercase tracking-[0.18em] text-emerald-200">Status</p>
+                      <p className="text-xs uppercase tracking-[0.18em] text-emerald-200">Status</p>
                       <p className="text-lg font-semibold text-emerald-200">Compliant</p>
                       <p className="text-emerald-100/80">Transport Canada standards</p>
                     </div>
                   </div>
                 </div>
 
-                {/* Floating cards */}
-                <div className="absolute -right-4 -top-4 w-40 md:w-48 rounded-2xl border border-white/15 bg-slate-950/90 px-4 py-3 backdrop-blur-xl shadow-[0_18px_60px_rgba(0,0,0,0.9)]">
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-slate-400 mb-1">
+                {/* Floating cards — desktop only; offsets caused horizontal scroll on mobile */}
+                <div className="absolute -right-4 -top-4 hidden w-40 rounded-2xl border border-white/15 bg-slate-950/90 px-4 py-3 backdrop-blur-xl shadow-[0_18px_60px_rgba(0,0,0,0.9)] md:block md:w-48">
+                  <p className="text-xs uppercase tracking-[0.2em] text-slate-400 mb-1">
                     Aerial Intel
                   </p>
                   <p className="text-sm font-semibold text-white">Live photo and video evidence</p>
-                  <p className="mt-1 text-[11px] text-slate-300/90">
+                  <p className="mt-1 text-xs text-slate-300/90">
                     Instant updates for dispatch and escalation.
                   </p>
                 </div>
 
-                <div className="absolute -left-6 -bottom-6 w-44 md:w-56 rounded-3xl border border-white/12 bg-white/8 px-4 py-3 backdrop-blur-2xl shadow-[0_26px_70px_rgba(0,0,0,0.9)]">
-                  <div className="flex items-center justify-between text-[11px] text-slate-200/90">
+                <div className="absolute -bottom-6 -left-6 hidden w-44 rounded-3xl border border-white/12 bg-white/8 px-4 py-3 backdrop-blur-2xl shadow-[0_26px_70px_rgba(0,0,0,0.9)] md:block md:w-56">
+                  <div className="flex items-center justify-between text-xs text-slate-200/90">
                     <span className="uppercase tracking-[0.16em]">Flight Path</span>
                     <span className="flex items-center gap-1 text-emerald-300">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
@@ -278,11 +272,12 @@ export default function Services() {
 
         {/* New section: Drone service detail deck */}
         <motion.section
+          id="drone-service-details"
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.7, ease: easing }}
-          className="max-w-6xl mx-auto px-6 md:px-10 mb-20 md:mb-28 mt-2 md:mt-4"
+          className="mx-auto mt-2 max-w-6xl scroll-mt-28 px-6 md:mt-4 md:scroll-mt-32 mb-20 md:mb-28 md:px-10"
         >
           <div className="rounded-3xl border border-white/10 bg-slate-900/50 backdrop-blur-sm p-6 md:p-8 lg:p-10 shadow-[0_32px_90px_rgba(2,8,23,0.55)]">
             <div className="grid gap-6 md:grid-cols-3">
@@ -358,11 +353,12 @@ export default function Services() {
 
         {/* Strategic: field operations — security1 (image left) */}
         <motion.section
+          id="field-operations"
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.7, ease: easing }}
-          className="max-w-6xl mx-auto px-6 md:px-10 mb-20 md:mb-28"
+          className="mx-auto max-w-6xl scroll-mt-28 px-6 md:scroll-mt-32 mb-20 md:mb-28 md:px-10"
         >
           <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-14 items-center">
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
@@ -400,11 +396,12 @@ export default function Services() {
 
         {/* Section 2: Undercover Asset Protection — security2 (full-width visual) */}
         <motion.section
+          id="undercover-asset-protection"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: easing }}
-          className="max-w-6xl mx-auto mb-20 md:mb-28 px-6 md:px-10"
+          className="mx-auto mb-20 max-w-6xl scroll-mt-28 px-6 md:scroll-mt-32 md:mb-28 md:px-10"
         >
           <div className="relative mb-10 md:mb-12 overflow-hidden rounded-3xl border border-white/10 aspect-[21/9] min-h-[200px] md:min-h-[280px]">
             <img
@@ -465,11 +462,12 @@ export default function Services() {
 
         {/* Strategic: coverage & presence — security4 (copy left, image right) */}
         <motion.section
+          id="visible-deterrence"
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.7, ease: easing }}
-          className="max-w-6xl mx-auto px-6 md:px-10 mb-20 md:mb-28"
+          className="mx-auto mb-20 max-w-6xl scroll-mt-28 px-6 md:scroll-mt-32 md:mb-28 md:px-10"
         >
           <div className="grid lg:grid-cols-[1fr_1.05fr] gap-10 lg:gap-14 items-center">
             <div className="space-y-5 order-2 lg:order-1">
@@ -488,7 +486,7 @@ export default function Services() {
               <img
                 src={security4}
                 alt="Uniformed security presence at a partner site"
-                className="h-full w-full object-cover"
+                className="absolute inset-x-0 top-0 h-[calc(100%+50px)] w-full object-cover object-top"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-bl from-transparent via-transparent to-slate-950/40" />
             </div>
@@ -497,20 +495,24 @@ export default function Services() {
 
         {/* Section 3: Uniformed Guard Protection — security5 (hero strip above cards) */}
         <motion.section
+          id="uniformed-guard-protection"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: easing }}
-          className="max-w-6xl mx-auto px-6 md:px-10"
+          className="mx-auto max-w-6xl scroll-mt-28 px-6 md:scroll-mt-32 md:px-10"
         >
-          <div className="relative mb-10 md:mb-14 overflow-hidden rounded-3xl border border-white/10 h-52 md:h-72">
+          <div className="relative mb-6 overflow-hidden rounded-3xl border border-white/10 h-56 sm:h-60 md:mb-14 md:h-72">
             <img
               src={security5}
               alt="Uniformed guard services and on-site protection"
               className="h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+            {/* Mobile: light edge fade only so the photo stays visible */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent md:hidden" />
+            {/* Desktop: readable overlay band */}
+            <div className="absolute inset-0 hidden bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent md:block" />
+            <div className="absolute bottom-0 left-0 right-0 hidden p-6 md:flex md:p-8 flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/25 text-amber-300 border border-amber-400/30">
                   <IconShield />
@@ -523,6 +525,21 @@ export default function Services() {
                 Tailored programs from static posts to patrol routes—built around your hours, hazards, and compliance needs.
               </p>
             </div>
+          </div>
+
+          {/* Mobile: copy below the image so it does not cover the photo */}
+          <div className="mb-10 space-y-3 md:hidden">
+            <div className="flex items-start gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-amber-300 border border-amber-400/25">
+                <IconShield />
+              </span>
+              <h2 className="text-xl font-semibold tracking-tight text-white pt-0.5">
+                Uniformed Guard Protection
+              </h2>
+            </div>
+            <p className="text-sm leading-relaxed text-slate-300/90">
+              Tailored programs from static posts to patrol routes—built around your hours, hazards, and compliance needs.
+            </p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">

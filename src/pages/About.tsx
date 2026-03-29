@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import logoWhite from '../assets/logo-white.png'
 import Footer from '../components/Footer'
+import SiteHeader from '../components/SiteHeader'
 import slider1 from '../assets/slider1.png'
 import slider2 from '../assets/slider2.png'
 import slider3 from '../assets/slider3.png'
@@ -82,45 +82,7 @@ export default function About() {
 
   return (
     <div className="min-h-screen about-page-bg text-white">
-      <header className="fixed inset-x-0 top-0 z-50 bg-gradient-to-b from-black/90 via-black/60 to-transparent backdrop-blur-sm pt-5 md:pt-7">
-        <div className="flex items-center justify-between px-6 md:px-10">
-          <Link to="/" className="flex items-center gap-3">
-            <img src={logoWhite} alt="EIG Security" className="h-14 md:h-16 w-auto" />
-          </Link>
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium bg-white/10 border border-white/10 rounded-full px-3 py-1.5 backdrop-blur-md">
-            <Link
-              to="/"
-              className="px-4 py-1.5 rounded-full text-slate-100/80 hover:text-white transition-colors"
-            >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className="px-4 py-1.5 rounded-full bg-white text-slate-900 shadow-sm"
-            >
-              About Us
-            </Link>
-            <Link
-              to="/services"
-              className="px-4 py-1.5 rounded-full text-slate-100/80 hover:text-white transition-colors"
-            >
-              Services
-            </Link>
-            <Link
-              to="/contact"
-              className="px-4 py-1.5 rounded-full text-slate-100/80 hover:text-white transition-colors"
-            >
-              Contact
-            </Link>
-          </nav>
-          <Link
-            to="/contact"
-            className="hidden md:inline-flex items-center rounded-full border border-white/30 bg-white text-slate-900 text-sm font-semibold px-4 py-2 shadow-sm hover:bg-slate-100 transition-colors"
-          >
-            Get In Touch <span className="ml-1.5 text-base">↗</span>
-          </Link>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="pt-40 md:pt-48 pb-16 md:pb-24 px-6 md:px-10">
         {/* Top section: derived from About content */}

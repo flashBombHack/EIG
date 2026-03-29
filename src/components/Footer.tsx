@@ -16,11 +16,15 @@ export default function Footer() {
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
             <div className="space-y-5 max-w-sm">
               <div className="flex items-center gap-3">
-                <img src={logoWhite} alt="EIG Security" className="h-14 w-auto" />
+                <img
+                  src={logoWhite}
+                  alt="Exodus Investigators Group"
+                  className="h-14 w-auto"
+                />
               </div>
               <p className="text-sm text-slate-100/85">
-                EIG backs retailers, construction partners, and organizations that take loss
-                prevention and safety seriously — with guard programs built for the real world.
+                Exodus Investigators Group backs retailers, construction partners, and organizations that
+                take loss prevention and safety seriously — with guard programs built for the real world.
               </p>
               <Link
                 to="/contact"
@@ -54,14 +58,23 @@ export default function Footer() {
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">
                   Resources
                 </p>
-                <Link to="/" className="block text-left text-slate-100/85 hover:text-white">
+                <Link
+                  to="/services#drone-surveillance"
+                  className="block text-left text-slate-100/85 hover:text-white"
+                >
+                  Drone surveillance
+                </Link>
+                <Link
+                  to="/services#undercover-asset-protection"
+                  className="block text-left text-slate-100/85 hover:text-white"
+                >
+                  Loss prevention &amp; undercover
+                </Link>
+                <Link
+                  to="/services#uniformed-guard-protection"
+                  className="block text-left text-slate-100/85 hover:text-white"
+                >
                   Guard programs
-                </Link>
-                <Link to="/" className="block text-left text-slate-100/85 hover:text-white">
-                  Loss prevention
-                </Link>
-                <Link to="/" className="block text-left text-slate-100/85 hover:text-white">
-                  Private investigations
                 </Link>
               </div>
 
@@ -70,16 +83,16 @@ export default function Footer() {
                   Contact
                 </p>
                 <p className="text-slate-100/85 text-sm">
-                  info@eigsecurity.com
+                  info@exodusgroup.ca
                   <br />
-                  Ontario, Canada
+                  Cornwall, Ontario, Canada
                 </p>
                 <div className="flex items-center gap-3 pt-2">
                   {['in', 'x', 'ig'].map((abbr) => (
                     <button
                       key={abbr}
                       type="button"
-                      className="flex h-8 w-8 items-center justify-center rounded-full border border-white/35 bg-white/5 text-[11px] font-semibold uppercase tracking-wide text-slate-100/90 hover:bg-white/15 transition-colors"
+                      className="flex h-8 w-8 items-center justify-center rounded-full border border-white/35 bg-white/5 text-xs font-semibold uppercase tracking-wide text-slate-100/90 hover:bg-white/15 transition-colors"
                     >
                       {abbr}
                     </button>
@@ -96,7 +109,9 @@ export default function Footer() {
             transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-4 text-xs text-slate-300 md:flex-row md:items-center md:justify-between"
           >
-            <p>© {new Date().getFullYear()} EIG Security. All rights reserved.</p>
+            <p>
+              © {new Date().getFullYear()} Exodus Investigators Group. All rights reserved.
+            </p>
             <div className="flex flex-wrap gap-4">
               <button type="button" className="text-slate-300 hover:text-white">
                 Terms of use
