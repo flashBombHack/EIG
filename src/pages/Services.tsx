@@ -1,15 +1,49 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import droneBg from '../assets/droneBG.png'
 import security1 from '../assets/security1.jpeg'
-import security2 from '../assets/security2.jpeg'
+import security3 from '../assets/security3.jpeg'
 import security4 from '../assets/security4.jpeg'
 import security5 from '../assets/security5.jpeg'
+import slider2 from '../assets/slider2.png'
 import Footer from '../components/Footer'
+import ServicePillarShowcase, { type ServicePillar } from '../components/ServicePillarShowcase'
 import SiteHeader from '../components/SiteHeader'
 
+const RepeatOffenderStatChart = lazy(() => import('../components/RepeatOffenderStatChart'))
+
 const easing: [number, number, number, number] = [0.16, 1, 0.3, 1]
+
+/** Shared horizontal inset , keep all Services bands aligned; intentionally light padding */
+const pageGutter = 'px-4 sm:px-5'
+const pageShell = `mx-auto max-w-6xl ${pageGutter}`
+
+/** Page scroll order , labels match homepage / footer service naming */
+const servicesPageOutline = [
+  { id: 'drone-surveillance', label: 'Drone surveillance' },
+  { id: 'drone-service-details', label: 'Drone program details' },
+  { id: 'uniformed-guard-protection', label: 'Uniformed security' },
+  { id: 'field-operations', label: 'Field operations' },
+  { id: 'undercover-asset-protection', label: 'Undercover security' },
+  { id: 'visible-deterrence', label: 'Visible deterrence' },
+  { id: 'lp-performance-intelligence', label: 'LP intelligence metrics' },
+  { id: 'undercover-program-outcomes', label: 'Program outcomes' },
+  { id: 'uniformed-guard-offerings', label: 'Uniformed offerings' },
+] as const
+
+const benefitCheckTones = [
+  'text-amber-400',
+  'text-cyan-300',
+  'text-emerald-400',
+  'text-sky-300',
+  'text-amber-200',
+  'text-orange-300',
+  'text-teal-300',
+  'text-violet-300',
+  'text-lime-300',
+  'text-fuchsia-300',
+] as const
 
 const undercoverIntro =
   'Using the latest technology to compile and analyze apprehensions, identifying trends and providing our investigators with updated information on known shoplifters operating in your area.'
@@ -56,9 +90,16 @@ const droneWorkflow = [
   'Incidents are escalated quickly when required',
 ]
 
-function IconCheck() {
+function IconCheck({ className }: { className?: string }) {
   return (
-    <svg className="w-5 h-5 shrink-0 text-emerald-400/90" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <svg
+      className={className ?? 'h-5 w-5 shrink-0 text-amber-400'}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+      aria-hidden
+    >
       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   )
@@ -131,6 +172,89 @@ function GuardIcon({ name }: { name: string }) {
   }
 }
 
+const servicePillars: ServicePillar[] = [
+  {
+    id: 1,
+    hashId: 'uniformed-guard-protection',
+    callout: 'Uniformed security',
+    title: 'Uniformed Guard Protection',
+    description:
+      'Tailored programs from static posts to patrol routes, built around your hours, hazards, and compliance needs.',
+    contentPosition: 'l',
+    image: security3,
+    imageAlt: 'Uniformed security field equipment and operational readiness tools',
+    accentBadgeClass: 'bg-amber-500/20 text-amber-100 ring-amber-400/35',
+    eyebrowDotClass: 'bg-amber-400',
+    listBulletClass: 'bg-amber-300',
+    spotlightTintClass: 'bg-[radial-gradient(circle_at_28%_24%, rgba(251,191,36,0.12), transparent_50%)]',
+    titleMarkClass: 'text-amber-400 drop-shadow-[0_0_14px_rgba(251,191,36,0.35)]',
+    headingVariant: 'serviceDisplay',
+    serviceEyebrowAccentClass: 'text-amber-300 drop-shadow-[0_0_20px_rgba(251,191,36,0.35)]',
+    spotlightTitle: 'Core guard coverage',
+    spotlightDescription: 'Site-ready teams for entry points, patrol routes, incident response, and shift coverage.',
+  },
+  {
+    id: 2,
+    hashId: 'field-operations',
+    callout: 'Field-first response',
+    title: 'Teams where your risk is highest',
+    description:
+      'Uniformed and undercover coverage scales with your footprint, so investigations, patrols, and loss prevention stay aligned with real activity on the floor and at the perimeter.',
+    bullets: [
+      'Rapid coordination between LP, guards, and site leadership.',
+      'Clear reporting that supports audits and partner expectations.',
+    ],
+    contentPosition: 'r',
+    image: security1,
+    imageAlt: 'EIG security professional on site',
+    accentBadgeClass: 'bg-emerald-500/18 text-emerald-100 ring-emerald-400/30',
+    eyebrowDotClass: 'bg-emerald-400',
+    listBulletClass: 'bg-emerald-300',
+    spotlightTintClass: 'bg-[radial-gradient(circle_at_30%_22%, rgba(52,211,153,0.15), transparent_55%)]',
+    titleMarkClass: 'text-emerald-400',
+    spotlightTitle: 'Coordinated field operations',
+    spotlightDescription: 'Guard and LP teams share updates quickly so leadership gets fast, accurate operational visibility.',
+  },
+  {
+    id: 3,
+    hashId: 'undercover-asset-protection',
+    callout: 'Undercover security',
+    title: 'Discrete coverage that blends with your operations',
+    description: undercoverIntro,
+    contentPosition: 'l',
+    image: slider2,
+    imageAlt: 'Investigator reviewing surveillance feeds and case data on multiple workstations',
+    accentBadgeClass: 'bg-fuchsia-500/15 text-fuchsia-100 ring-fuchsia-400/28',
+    eyebrowDotClass: 'bg-fuchsia-400',
+    listBulletClass: 'bg-fuchsia-300',
+    spotlightTintClass:
+      'bg-[radial-gradient(circle_at_65%_28%, rgba(56,189,248,0.14), transparent_50%), radial-gradient(circle_at_18%_72%, rgba(232,121,249,0.12), transparent_46%)]',
+    titleMarkClass: 'text-fuchsia-400',
+    headingVariant: 'serviceDisplay',
+    serviceEyebrowAccentClass: 'text-fuchsia-300 drop-shadow-[0_0_18px_rgba(232,121,249,0.35)]',
+    spotlightTitle: 'Discreet intelligence in motion',
+    spotlightDescription: 'Plain-clothes investigators monitor patterns, build evidence, and support targeted interventions.',
+  },
+  {
+    id: 4,
+    hashId: 'visible-deterrence',
+    callout: 'Visible deterrence',
+    title: 'Presence that reinforces policy and safety',
+    description:
+      'Professional guards and patrols extend your culture of accountability, supporting staff, customers, and contractors with consistent, documented visibility across shifts.',
+    contentPosition: 'r',
+    image: security4,
+    imageAlt: 'Uniformed security presence at a partner site',
+    accentBadgeClass: 'bg-orange-500/18 text-orange-100 ring-orange-400/32',
+    eyebrowDotClass: 'bg-orange-400',
+    listBulletClass: 'bg-orange-300',
+    spotlightTintClass: 'bg-[radial-gradient(circle_at_72%_20%, rgba(251,146,60,0.14), transparent_52%)]',
+    titleMarkClass: 'text-orange-400',
+    spotlightTitle: 'Visible deterrence on site',
+    spotlightDescription: 'Consistent presence at high-traffic zones helps prevent incidents before they escalate.',
+  },
+]
+
 export default function Services() {
   const location = useLocation()
 
@@ -146,10 +270,30 @@ export default function Services() {
   }, [location.pathname, location.hash])
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-eig-bg text-white">
+    <div className="min-h-screen overflow-x-clip overflow-y-visible bg-eig-bg text-white">
       <SiteHeader />
 
-      <main className="pt-0 pb-20 px-0 md:px-0">
+      <main className="px-0 pb-14 pt-0 md:pb-16">
+        <nav
+          aria-label="Services on this page"
+          className={`${pageShell} border-b border-white/[0.08] pb-4 pt-3`}
+        >
+          <p className="mb-2 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-slate-500">
+            On this page
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {servicesPageOutline.map(({ id, label }) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[0.7rem] font-medium text-slate-200 transition-colors hover:border-cyan-400/40 hover:bg-cyan-500/10 hover:text-white md:text-xs"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+        </nav>
+
         {/* Section 1: Drone-style services hub */}
         <motion.section
           id="drone-surveillance"
@@ -157,7 +301,7 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: easing }}
-          className="relative mb-24 scroll-mt-28 md:scroll-mt-32 md:mb-32"
+          className="relative mb-16 scroll-mt-28 md:mb-20 md:scroll-mt-32"
         >
           <div className="relative min-h-screen w-full overflow-hidden bg-black/60">
             <div
@@ -165,21 +309,27 @@ export default function Services() {
               style={{ backgroundImage: `url(${droneBg})` }}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/75 to-slate-950/35" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(96,165,250,0.25),_transparent_55%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(96,165,250,0.28),_transparent_55%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_85%_55%, rgba(251,191,36,0.14), transparent_50%)]" />
 
-            <div className="relative z-10 mx-auto grid max-w-6xl min-w-0 gap-10 px-6 pt-28 pb-24 md:px-10 md:pt-32 md:pb-28 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:pt-40 lg:pb-32 items-center">
+            <div
+              className={`relative z-10 mx-auto grid max-w-6xl min-w-0 gap-8 items-center ${pageGutter} pb-16 pt-24 md:pb-20 md:pt-28 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:pb-24 lg:pt-32`}
+            >
               {/* Left: headline + CTAs */}
               <div className="space-y-6 max-w-xl">
-                <p className="text-sm font-medium tracking-[0.2em] uppercase text-slate-300/80">
-                  Drone Surveillance Services
+                <p className="font-display text-sm font-extrabold uppercase leading-none tracking-[0.28em] md:text-base">
+                  <span className="text-cyan-300 drop-shadow-[0_0_20px_rgba(34,211,238,0.35)]">Drone surveillance</span>
+                  <span className="text-amber-300/95"> · </span>
+                  <span className="text-slate-100/90">services</span>
                 </p>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-tight">
-                  Aerial Security Coverage,
-                  <br />
-                  in Real Time.
+                <h1 className="font-display text-4xl font-bold leading-[1.08] tracking-tight text-white md:text-5xl lg:text-[3.35rem]">
+                  <span className="block text-slate-50">Aerial security coverage,</span>
+                  <span className="mt-1 block bg-gradient-to-r from-cyan-200 via-sky-300 to-amber-200 bg-clip-text text-transparent">
+                    in real time.
+                  </span>
                 </h1>
-                <p className="text-slate-200/85 text-sm md:text-base max-w-lg">
-                  Licensed drone operators provide rapid aerial monitoring, live incident visibility, and
+                <p className="max-w-lg text-sm font-medium leading-relaxed text-slate-200/90 md:text-base">
+                  Licensed drone operators deliver rapid aerial monitoring, live incident visibility, and
                   cost-efficient coverage across large or complex properties.
                 </p>
 
@@ -204,7 +354,7 @@ export default function Services() {
 
               {/* Right: futuristic stats pod */}
               <div className="relative min-w-0 overflow-hidden lg:overflow-visible lg:self-end lg:mb-6">
-                <div className="relative rounded-3xl border border-white/12 bg-white/8 backdrop-blur-2xl px-5 py-5 md:px-7 md:py-7 shadow-[0_30px_80px_rgba(0,0,0,0.85)]">
+                <div className="relative rounded-3xl border border-white/12 bg-white/8 px-4 py-4 shadow-[0_30px_80px_rgba(0,0,0,0.85)] backdrop-blur-2xl md:px-5 md:py-5">
                   <div className="flex items-center justify-between gap-4 mb-4">
                     <div>
                       <p className="text-xs uppercase tracking-[0.18em] text-slate-200/80">
@@ -240,7 +390,7 @@ export default function Services() {
                   </div>
                 </div>
 
-                {/* Floating cards — desktop only; offsets caused horizontal scroll on mobile */}
+                {/* Floating cards , desktop only; offsets caused horizontal scroll on mobile */}
                 <div className="absolute -right-4 -top-4 hidden w-40 rounded-2xl border border-white/15 bg-slate-950/90 px-4 py-3 backdrop-blur-xl shadow-[0_18px_60px_rgba(0,0,0,0.9)] md:block md:w-48">
                   <p className="text-xs uppercase tracking-[0.2em] text-slate-400 mb-1">
                     Aerial Intel
@@ -277,16 +427,30 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.7, ease: easing }}
-          className="mx-auto mt-2 max-w-6xl scroll-mt-28 px-6 md:mt-4 md:scroll-mt-32 mb-20 md:mb-28 md:px-10"
+          className={`${pageShell} mb-16 mt-2 scroll-mt-28 md:mb-20 md:mt-4 md:scroll-mt-32`}
         >
-          <div className="rounded-3xl border border-white/10 bg-slate-900/50 backdrop-blur-sm p-6 md:p-8 lg:p-10 shadow-[0_32px_90px_rgba(2,8,23,0.55)]">
-            <div className="grid gap-6 md:grid-cols-3">
-              <div className="md:col-span-2 rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:p-6">
-                <p className="text-xs uppercase tracking-[0.2em] text-cyan-200/90">
-                  What is drone surveillance?
+          <div className="rounded-3xl border border-cyan-500/20 bg-slate-900/50 p-4 shadow-[0_32px_90px_rgba(2,8,23,0.55)] ring-1 ring-cyan-500/10 backdrop-blur-sm md:p-5">
+            <div className="grid gap-4 md:grid-cols-3">
+              <div className="md:col-span-2 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                <p className="font-display text-xs font-bold uppercase tracking-[0.22em] text-transparent bg-gradient-to-r from-cyan-300 to-amber-200 bg-clip-text">
+                  Drone surveillance
                 </p>
-                <h2 className="mt-3 text-2xl md:text-3xl font-semibold tracking-tight text-white">
-                  Faster aerial monitoring for high-risk environments
+                <h2 className="font-display mt-3 flex items-start gap-3 text-2xl font-bold tracking-tight text-white md:gap-4 md:text-3xl">
+                  <svg
+                    className="mt-1 h-7 w-7 shrink-0 text-amber-400 md:h-8 md:w-8"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={1.75}
+                    aria-hidden
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span className="min-w-0">Faster aerial monitoring for high-risk environments</span>
                 </h2>
                 <p className="mt-3 text-sm md:text-base text-slate-100/90 leading-relaxed">
                   Drone surveillance uses licensed operators flying camera-equipped drones to provide
@@ -295,7 +459,7 @@ export default function Services() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:p-6">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-slate-200/90">
                   Equipment & compliance
                 </p>
@@ -308,8 +472,8 @@ export default function Services() {
               </div>
             </div>
 
-            <div className="mt-6 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:p-6">
+            <div className="mt-4 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-slate-200/90">
                   How the service works
                 </p>
@@ -323,7 +487,7 @@ export default function Services() {
                 </ol>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:p-6">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-slate-200/90">
                   Ideal use cases
                 </p>
@@ -338,108 +502,63 @@ export default function Services() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:p-6 text-center">
-              <p className="text-lg md:text-2xl font-semibold text-white tracking-tight">
+            <div className="mt-4 rounded-2xl border border-cyan-500/15 bg-gradient-to-br from-cyan-500/10 via-white/[0.04] to-amber-500/10 p-4 text-center">
+              <p className="font-display text-lg font-bold tracking-tight text-white md:text-2xl">
                 Drone surveillance helps protect more ground, faster and safer, while delivering clear
                 visual evidence and rapid response.
               </p>
-              <p className="mt-2 text-sm md:text-base text-slate-200/90">
-                Combined packages are available with on-site guards, weekly patrol flights, and unified
+              <p className="mt-2 text-sm text-slate-200/90 md:text-base">
+                Combined packages are available with uniformed security, weekly patrol flights, and unified
                 incident reporting.
               </p>
             </div>
           </div>
         </motion.section>
 
-        {/* Strategic: field operations — security1 (image left) */}
-        <motion.section
-          id="field-operations"
-          initial={{ opacity: 0, y: 36 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.7, ease: easing }}
-          className="mx-auto max-w-6xl scroll-mt-28 px-6 md:scroll-mt-32 mb-20 md:mb-28 md:px-10"
-        >
-          <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-14 items-center">
-            <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
-              <img
-                src={security1}
-                alt="EIG security professional on site"
-                className="h-full w-full object-cover"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-slate-950/50 via-transparent to-transparent" />
-            </div>
-            <div className="space-y-5">
-              <p className="text-sm font-semibold tracking-[0.2em] uppercase text-cyan-300/90">
-                Field-first response
-              </p>
-              <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-white">
-                Teams where your risk is highest
-              </h2>
-              <p className="text-slate-300/90 text-sm md:text-base leading-relaxed">
-                Uniformed and undercover coverage scales with your footprint—so investigations, patrols, and
-                loss prevention stay aligned with real activity on the floor and at the perimeter.
-              </p>
-              <ul className="space-y-3 text-sm text-slate-200/85">
-                <li className="flex gap-3">
-                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
-                  Rapid coordination between LP, guards, and site leadership.
-                </li>
-                <li className="flex gap-3">
-                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
-                  Clear reporting that supports audits and partner expectations.
-                </li>
-              </ul>
-            </div>
-          </div>
-        </motion.section>
+        <section className="mb-16 md:mb-20">
+          <ServicePillarShowcase pillars={servicePillars} />
+        </section>
 
-        {/* Section 2: Undercover Asset Protection — security2 (full-width visual) */}
+        <section
+          id="lp-performance-intelligence"
+          className={`${pageShell} mb-16 scroll-mt-28 md:mb-20 md:scroll-mt-32`}
+          aria-label="Loss prevention performance metrics"
+        >
+          <Suspense
+            fallback={
+              <div
+                className="h-72 animate-pulse rounded-3xl border border-white/10 bg-white/[0.04] md:h-80"
+                aria-hidden
+              />
+            }
+          >
+            <RepeatOffenderStatChart />
+          </Suspense>
+        </section>
+
         <motion.section
-          id="undercover-asset-protection"
-          initial={{ opacity: 0, y: 40 }}
+          id="undercover-program-outcomes"
+          initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: easing }}
-          className="mx-auto mb-20 max-w-6xl scroll-mt-28 px-6 md:scroll-mt-32 md:mb-28 md:px-10"
+          className={`${pageShell} mb-16 scroll-mt-28 md:mb-20 md:scroll-mt-32`}
         >
-          <div className="relative mb-10 md:mb-12 overflow-hidden rounded-3xl border border-white/10 aspect-[21/9] min-h-[200px] md:min-h-[280px]">
-            <img
-              src={security2}
-              alt="Undercover loss prevention in a retail environment"
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/40 to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-8 max-w-lg">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200/90">
-                Undercover &amp; surveillance
+          <div className="rounded-3xl border border-cyan-400/20 bg-gradient-to-br from-slate-950/90 via-slate-950/70 to-slate-950/40 p-4 shadow-[0_28px_90px_rgba(2,8,23,0.55)] md:p-5">
+            <div className="mb-5 max-w-2xl">
+              <p className="font-display text-sm font-extrabold uppercase leading-none tracking-[0.28em] md:text-base">
+                <span className="text-fuchsia-300 drop-shadow-[0_0_18px_rgba(232,121,249,0.3)]">Undercover security</span>
+                <span className="text-amber-300/95"> · </span>
+                <span className="text-slate-100/90">program outcomes</span>
               </p>
-              <p className="mt-2 text-lg md:text-xl font-semibold text-white">
-                Discrete coverage that blends with your operations
-              </p>
-            </div>
-          </div>
-
-          <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 lg:gap-12 items-start">
-            {/* Left: intro card */}
-            <div className="rounded-2xl md:rounded-3xl border border-white/10 bg-slate-900/50 backdrop-blur-sm p-6 md:p-8 lg:sticky lg:top-32">
-              <div className="flex items-center gap-3 mb-5">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/15 text-cyan-400">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </span>
-                <h2 className="text-xl md:text-2xl font-semibold text-white">
-                  Undercover Asset Protection
-                </h2>
-              </div>
-              <p className="text-slate-300/90 text-sm md:text-base leading-relaxed">
-                {undercoverIntro}
+              <h2 className="mt-3 font-display text-4xl font-bold leading-[1.08] tracking-tight text-white md:mt-4 md:text-5xl lg:text-[3.35rem]">
+                Program outcomes you can measure
+              </h2>
+              <p className="mt-3 text-sm font-medium leading-relaxed text-slate-200/90 md:mt-4 md:text-base">
+                Each engagement is built around deterrence, recovery, and intelligence so leadership sees progress
+                in incidents, recoveries, and team confidence.
               </p>
             </div>
-
-            {/* Right: benefits grid */}
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
               {undercoverBenefits.map((item, i) => (
                 <motion.div
@@ -448,101 +567,51 @@ export default function Services() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.45, delay: i * 0.03, ease: easing }}
-                  className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/15 p-4 transition-colors"
+                  className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.04] p-3 shadow-[0_12px_40px_rgba(0,0,0,0.35)] transition-colors hover:border-cyan-300/25 hover:bg-white/[0.07]"
                 >
-                  <IconCheck />
-                  <p className="text-slate-200/95 text-sm leading-snug pt-0.5">
-                    {item}
-                  </p>
+                  <IconCheck
+                    className={`h-5 w-5 shrink-0 ${benefitCheckTones[i % benefitCheckTones.length]}`}
+                  />
+                  <p className="text-slate-100/95 text-sm leading-snug pt-0.5">{item}</p>
                 </motion.div>
               ))}
             </div>
           </div>
         </motion.section>
 
-        {/* Strategic: coverage & presence — security4 (copy left, image right) */}
         <motion.section
-          id="visible-deterrence"
+          id="uniformed-guard-offerings"
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
+          viewport={{ once: true, amount: 0.18 }}
           transition={{ duration: 0.7, ease: easing }}
-          className="mx-auto mb-20 max-w-6xl scroll-mt-28 px-6 md:scroll-mt-32 md:mb-28 md:px-10"
+          className={`${pageShell} scroll-mt-28 md:scroll-mt-32`}
         >
-          <div className="grid lg:grid-cols-[1fr_1.05fr] gap-10 lg:gap-14 items-center">
-            <div className="space-y-5 order-2 lg:order-1">
-              <p className="text-sm font-semibold tracking-[0.2em] uppercase text-amber-300/90">
-                Visible deterrence
-              </p>
-              <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-white">
-                Presence that reinforces policy and safety
-              </h2>
-              <p className="text-slate-300/90 text-sm md:text-base leading-relaxed">
-                Professional guards and patrols extend your culture of accountability—supporting staff,
-                customers, and contractors with consistent, documented visibility across shifts.
-              </p>
-            </div>
-            <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.45)] order-1 lg:order-2">
-              <img
-                src={security4}
-                alt="Uniformed security presence at a partner site"
-                className="absolute inset-x-0 top-0 h-[calc(100%+50px)] w-full object-cover object-top"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-bl from-transparent via-transparent to-slate-950/40" />
-            </div>
-          </div>
-        </motion.section>
-
-        {/* Section 3: Uniformed Guard Protection — security5 (hero strip above cards) */}
-        <motion.section
-          id="uniformed-guard-protection"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: easing }}
-          className="mx-auto max-w-6xl scroll-mt-28 px-6 md:scroll-mt-32 md:px-10"
-        >
-          <div className="relative mb-6 overflow-hidden rounded-3xl border border-white/10 h-56 sm:h-60 md:mb-14 md:h-72">
-            <img
-              src={security5}
-              alt="Uniformed guard services and on-site protection"
-              className="h-full w-full object-cover"
-            />
-            {/* Mobile: light edge fade only so the photo stays visible */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent md:hidden" />
-            {/* Desktop: readable overlay band */}
-            <div className="absolute inset-0 hidden bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent md:block" />
-            <div className="absolute bottom-0 left-0 right-0 hidden p-6 md:flex md:p-8 flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/25 text-amber-300 border border-amber-400/30">
-                  <IconShield />
-                </span>
-                <h2 className="text-2xl md:text-3xl font-semibold text-white">
-                  Uniformed Guard Protection
+          <div className="mb-6 rounded-3xl border border-amber-400/20 bg-gradient-to-br from-slate-950/90 via-slate-950/70 to-slate-950/40 p-4 shadow-[0_28px_90px_rgba(2,8,23,0.55)] md:p-5">
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-2xl">
+                <p className="font-display text-sm font-extrabold uppercase leading-none tracking-[0.28em] md:text-base">
+                  <span className="text-amber-300 drop-shadow-[0_0_20px_rgba(251,191,36,0.3)]">Uniformed security</span>
+                  <span className="text-amber-300/95"> · </span>
+                  <span className="text-slate-100/90">offerings</span>
+                </p>
+                <h2 className="mt-3 font-display text-4xl font-bold leading-[1.08] tracking-tight text-white md:mt-4 md:text-5xl lg:text-[3.35rem]">
+                  Core guard and patrol offerings
                 </h2>
+                <p className="mt-3 text-sm font-medium leading-relaxed text-slate-200/90 md:mt-4 md:text-base">
+                  Mix and match posts, patrols, and specialty coverage to match your footprint, hours, and risk profile.
+                </p>
               </div>
-              <p className="text-sm text-slate-200/85 max-w-md sm:text-right">
-                Tailored programs from static posts to patrol routes—built around your hours, hazards, and compliance needs.
-              </p>
+              <Link
+                to="/contact"
+                className="inline-flex w-fit items-center justify-center rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_40px_rgba(249,115,22,0.45)] hover:bg-orange-400 transition-colors"
+              >
+                Build a program
+              </Link>
             </div>
           </div>
 
-          {/* Mobile: copy below the image so it does not cover the photo */}
-          <div className="mb-10 space-y-3 md:hidden">
-            <div className="flex items-start gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-amber-300 border border-amber-400/25">
-                <IconShield />
-              </span>
-              <h2 className="text-xl font-semibold tracking-tight text-white pt-0.5">
-                Uniformed Guard Protection
-              </h2>
-            </div>
-            <p className="text-sm leading-relaxed text-slate-300/90">
-              Tailored programs from static posts to patrol routes—built around your hours, hazards, and compliance needs.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
             {guardServices.map((item, i) => (
               <motion.div
                 key={item.label}
@@ -550,15 +619,15 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.5, delay: i * 0.06, ease: easing }}
-                className="group relative rounded-2xl md:rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-6 md:p-8 hover:border-white/20 hover:from-white/[0.08] hover:to-white/[0.04] transition-all duration-300"
+                className="group relative rounded-2xl border border-white/12 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-4 shadow-[0_18px_60px_rgba(0,0,0,0.45)] transition-all duration-300 hover:border-amber-300/30 hover:from-white/[0.1] hover:to-white/[0.04] md:rounded-3xl md:p-5"
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-colors" />
+                <div className="absolute top-0 right-0 h-32 w-32 rounded-full bg-amber-400/10 blur-2xl transition-colors group-hover:bg-amber-400/15" />
                 <div className="relative flex items-start gap-4">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-slate-200 group-hover:bg-white/15 group-hover:text-white transition-colors">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/10 text-slate-100 group-hover:border-amber-300/25 group-hover:bg-white/15 transition-colors">
                     <GuardIcon name={item.icon} />
                   </span>
                   <div>
-                    <h3 className="text-base md:text-lg font-semibold text-white group-hover:text-slate-50">
+                    <h3 className="text-base font-semibold text-white md:text-lg group-hover:text-amber-50">
                       {item.label}
                     </h3>
                   </div>

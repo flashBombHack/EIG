@@ -11,25 +11,19 @@ const SLIDER_INTERVAL_MS = 6000
 const easing: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
 const eigDoItems = [
-  'Recover your stolen inventory',
-  'Eliminate re-occurring loss',
-  'Eliminate shoplifter encouragement',
-  'Eliminate employee theft',
-  'Deter present and future suspects',
-  'Provide your employees with a feeling of safety',
-  'Empower your employees for success, suspect identification, on-going theft and actions to take',
-  'Increase your manager/employee productivity while we focus on the apprehension',
-  'Trust service, survey unproductive and/or cheating employees, suppliers or contractors',
-  'Communicate with local authorities for off duty/on camera suspicious activity, trespass and charge',
-  'Audit sites for security enhancements and provide regular performance reports of loss prevention',
-  'Complimentary return to shelf service',
+  'Deploy uniformed security guards and mobile patrols based on your risk profile and hours of operation',
+  'Run undercover loss prevention programs to identify repeat patterns, recover assets, and reduce shrink',
+  'Provide licensed drone surveillance for large sites, after-hours monitoring, and rapid incident visibility',
+  'Support private investigations for internal concerns, integrity issues, and evidence-based reporting',
+  'Coordinate with site leadership and local authorities for escalation, documentation, and follow-through',
+  'Deliver clear analytics and recurring reports so your team can track outcomes across all service areas',
 ]
 
 const slides = [
   {
     id: 0,
     title: 'Who Are We',
-    content: `EIG is a fully licensed loss prevention, security and private investigations company headquartered near Ottawa, serving small cities and towns across Ontario. We use a top-to-bottom, metrics-driven approach and align our team with yours to achieve your goals.
+    content: `EIG is a fully licensed provider of uniformed security, undercover security, drone surveillance, and private investigations headquartered near Ottawa, serving small cities and towns across Ontario. We use a top-to-bottom, metrics-driven approach and align our team with yours to achieve your goals.
 
 Our team is highly qualified, licensed and trained. We treat your business like our own and deliver a cutting-edge, community-centric operation. With over 200 apprehensions and 1000 preventions per officer per year, our recovery rate is 7x above the industry average.`,
     image: slider1,
@@ -38,14 +32,14 @@ Our team is highly qualified, licensed and trained. We treat your business like 
   {
     id: 1,
     title: 'Our Mission',
-    content: `EIG provides innovative, reliable, moral and ethical loss prevention, asset protection, security and safety solutions. We guarantee excellence through professional, dependable people and systems, and we remain committed to social responsibility—understanding and addressing the needs of all individuals involved in the incidents we handle.`,
+    content: `EIG delivers innovative, reliable, and ethical protection programs across uniformed security, undercover security, drone surveillance, and private investigations. We guarantee excellence through dependable people and systems, and we remain committed to social responsibility while addressing the needs of all individuals involved in the incidents we handle.`,
     image: slider2,
     cardClass: 'about-card-mission',
   },
   {
     id: 2,
     title: 'Quality Policy',
-    content: `EIG is committed to the highest degree of quality in all operations and services. We meet client expectations of performance, quality, integrity and delivery; understand requirements and provide appropriate advice and services; promote innovation and technology; invest in staff development; and maintain effective internal and external communication.`,
+    content: `EIG is committed to the highest degree of quality across uniformed security, undercover security, drone surveillance, and private investigations. We meet client expectations of performance, integrity, and delivery; provide practical service guidance; promote innovation and technology; invest in staff development; and maintain strong internal and external communication.`,
     image: slider3,
     cardClass: 'about-card-quality',
   },
@@ -101,7 +95,7 @@ export default function About() {
             className="max-w-2xl"
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-white">
-              Excellence in Loss Prevention, Security & Investigations
+              Full-service protection across every site and risk profile
             </h1>
           </motion.div>
           <motion.div
@@ -112,7 +106,7 @@ export default function About() {
             className="max-w-md flex flex-col gap-4"
           >
             <p className="text-slate-200/90 text-sm md:text-base">
-              We are a fully licensed loss prevention, security and private investigations company serving Ontario. Our team delivers metrics-driven results and a community-centric approach—with a recovery rate 7x above the industry average.
+              We provide uniformed security, undercover security, drone surveillance, and private investigations across Ontario. Our team delivers metrics-driven results with a community-centric approach, including a recovery rate 7x above the industry average.
             </p>
             <Link
               to="/contact"

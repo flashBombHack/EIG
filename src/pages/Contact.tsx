@@ -32,7 +32,7 @@ export default function Contact() {
                 Contact Us
               </p>
               <h1 className="mt-3 text-3xl md:text-5xl font-semibold tracking-tight text-white max-w-3xl">
-                Get a free estimation for security, investigations, or drone coverage.
+                Get a free estimate for uniformed security, undercover security, drone surveillance, or investigations.
               </h1>
               <p className="mt-4 max-w-2xl text-sm md:text-base text-slate-200/85">
                 Tell us what you need and our team will build a tailored plan for your site, schedule, and risk profile.
@@ -70,6 +70,19 @@ export default function Contact() {
                     placeholder="Phone Number"
                     className="h-12 w-full rounded-xl border border-white/10 bg-slate-900/70 px-4 text-sm text-white placeholder:text-slate-400/90 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
                   />
+                  <select
+                    defaultValue=""
+                    className="h-12 w-full rounded-xl border border-white/10 bg-slate-900/70 px-4 text-sm text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
+                  >
+                    <option value="" disabled className="text-slate-400">
+                      Service you are getting in touch for
+                    </option>
+                    <option value="uniformed-security">Uniformed security</option>
+                    <option value="undercover-security">Undercover security</option>
+                    <option value="drone-surveillance">Drone surveillance</option>
+                    <option value="private-investigations">Private investigations</option>
+                    <option value="combined-services">Combined service package</option>
+                  </select>
                   <textarea
                     placeholder="Message"
                     rows={4}
@@ -104,11 +117,16 @@ export default function Contact() {
                     <span className="mt-1 text-cyan-300">✉</span>
                     <p className="text-base md:text-lg">info@exodusgroup.ca</p>
                   </div>
+                  <div className="flex gap-3 text-slate-200/90">
+                    <span className="mt-1 text-cyan-300">☎</span>
+                    <a href="tel:+16135550199" className="text-base md:text-lg hover:text-cyan-200 transition-colors">(613) 555-0199</a>
+                  </div>
                 </div>
 
                 <div className="mt-8 rounded-2xl border border-cyan-400/20 bg-cyan-500/10 px-5 py-4">
                   <p className="text-sm text-cyan-100/95">
-                    Fast response for new clients. Ask us about combined guard + drone service packages.
+                    Fast response for new clients. Ask us about combined uniformed security, undercover security,
+                    and drone surveillance packages.
                   </p>
                 </div>
               </motion.div>
