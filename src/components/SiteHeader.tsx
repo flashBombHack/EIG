@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import logoWhite from '../assets/logo-white.png'
+import logoWhite from '../assets/logo-white-new.png'
+import { CLIENT_PORTAL_URL } from '../constants/site'
 
 const navItems = [
   { label: 'Home', path: '/' },
   { label: 'About Us', path: '/about' },
   { label: 'Services', path: '/services' },
+  { label: 'Careers', path: '/careers' },
   { label: 'Contact', path: '/contact' },
 ]
 
@@ -85,7 +87,7 @@ export default function SiteHeader({ scrollReactive = false }: SiteHeaderProps) 
       >
         <div className="mx-auto flex w-full max-w-[100%] min-w-0 items-center px-6 md:px-10 pt-5 md:pt-7 pb-2">
           <Link to="/" className="flex shrink-0 items-center gap-3">
-            <img src={logoWhite} alt="EIG Security" className="h-14 md:h-16 w-auto" />
+            <img src={logoWhite} alt="EIG Security" className="h-14 w-auto md:h-16" />
           </Link>
 
           <nav className="hidden min-w-0 flex-1 justify-center px-4 md:flex">
@@ -106,7 +108,15 @@ export default function SiteHeader({ scrollReactive = false }: SiteHeaderProps) 
             </div>
           </nav>
 
-          <div className="ml-auto flex shrink-0 items-center gap-3">
+          <div className="ml-auto flex shrink-0 items-center gap-2 md:gap-3">
+            <a
+              href={CLIENT_PORTAL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden items-center rounded-full border border-white/25 bg-white/5 text-sm font-semibold px-4 py-2 text-white backdrop-blur-md transition-colors hover:bg-white/10 md:inline-flex"
+            >
+              Client Portal <span className="ml-1.5 text-base">↗</span>
+            </a>
             <Link
               to="/contact"
               className="hidden items-center rounded-full border border-white/30 bg-white text-slate-900 text-sm font-semibold px-4 py-2 shadow-sm shadow-white/30 hover:bg-slate-100 transition-colors md:inline-flex"
@@ -182,7 +192,16 @@ export default function SiteHeader({ scrollReactive = false }: SiteHeaderProps) 
                   </motion.div>
                 ))}
               </nav>
-              <div className="border-t border-white/10 p-5">
+              <div className="space-y-3 border-t border-white/10 p-5">
+                <a
+                  href={CLIENT_PORTAL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex w-full items-center justify-center rounded-2xl border border-white/20 bg-white/5 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10"
+                >
+                  Client Portal <span className="ml-2 text-base">↗</span>
+                </a>
                 <Link
                   to="/contact"
                   onClick={() => setMenuOpen(false)}

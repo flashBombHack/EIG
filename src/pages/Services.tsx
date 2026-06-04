@@ -22,26 +22,13 @@ const pageShell = `mx-auto max-w-6xl ${pageGutter}`
 const servicesPageOutline = [
   { id: 'drone-surveillance', label: 'Drone surveillance' },
   { id: 'drone-service-details', label: 'Drone program details' },
+  { id: 'undercover-asset-protection', label: 'Undercover security' },
   { id: 'uniformed-guard-protection', label: 'Uniformed security' },
   { id: 'field-operations', label: 'Field operations' },
-  { id: 'undercover-asset-protection', label: 'Undercover security' },
   { id: 'visible-deterrence', label: 'Visible deterrence' },
   { id: 'lp-performance-intelligence', label: 'LP intelligence metrics' },
   { id: 'undercover-program-outcomes', label: 'Program outcomes' },
   { id: 'uniformed-guard-offerings', label: 'Uniformed offerings' },
-] as const
-
-const benefitCheckTones = [
-  'text-amber-400',
-  'text-cyan-300',
-  'text-emerald-400',
-  'text-sky-300',
-  'text-amber-200',
-  'text-orange-300',
-  'text-teal-300',
-  'text-violet-300',
-  'text-lime-300',
-  'text-fuchsia-300',
 ] as const
 
 const undercoverIntro =
@@ -174,48 +161,6 @@ function GuardIcon({ name }: { name: string }) {
 const servicePillars: ServicePillar[] = [
   {
     id: 1,
-    hashId: 'uniformed-guard-protection',
-    callout: 'Uniformed security',
-    title: 'Uniformed Guard Protection',
-    description:
-      'Tailored programs from static posts to patrol routes, built around your hours, hazards, and compliance needs.',
-    contentPosition: 'l',
-    image: security3,
-    imageAlt: 'Uniformed security field equipment and operational readiness tools',
-    accentBadgeClass: 'bg-amber-500/20 text-amber-100 ring-amber-400/35',
-    eyebrowDotClass: 'bg-amber-400',
-    listBulletClass: 'bg-amber-300',
-    spotlightTintClass: 'bg-[radial-gradient(circle_at_28%_24%, rgba(251,191,36,0.12), transparent_50%)]',
-    titleMarkClass: 'text-amber-400 drop-shadow-[0_0_14px_rgba(251,191,36,0.35)]',
-    headingVariant: 'serviceDisplay',
-    serviceEyebrowAccentClass: 'text-amber-300 drop-shadow-[0_0_20px_rgba(251,191,36,0.35)]',
-    spotlightTitle: 'Core guard coverage',
-    spotlightDescription: 'Site-ready teams for entry points, patrol routes, incident response, and shift coverage.',
-  },
-  {
-    id: 2,
-    hashId: 'field-operations',
-    callout: 'Field-first response',
-    title: 'Teams where your risk is highest',
-    description:
-      'Uniformed and undercover coverage scales with your footprint, so investigations, patrols, and loss prevention stay aligned with real activity on the floor and at the perimeter.',
-    bullets: [
-      'Rapid coordination between LP, guards, and site leadership.',
-      'Clear reporting that supports audits and partner expectations.',
-    ],
-    contentPosition: 'r',
-    image: security1,
-    imageAlt: 'EIG security professional on site',
-    accentBadgeClass: 'bg-emerald-500/18 text-emerald-100 ring-emerald-400/30',
-    eyebrowDotClass: 'bg-emerald-400',
-    listBulletClass: 'bg-emerald-300',
-    spotlightTintClass: 'bg-[radial-gradient(circle_at_30%_22%, rgba(52,211,153,0.15), transparent_55%)]',
-    titleMarkClass: 'text-emerald-400',
-    spotlightTitle: 'Coordinated field operations',
-    spotlightDescription: 'Guard and LP teams share updates quickly so leadership gets fast, accurate operational visibility.',
-  },
-  {
-    id: 3,
     hashId: 'undercover-asset-protection',
     callout: 'Undercover security',
     title: 'Discrete coverage that blends with your operations',
@@ -225,7 +170,7 @@ const servicePillars: ServicePillar[] = [
     imageAlt: 'Investigator reviewing surveillance feeds and case data on multiple workstations',
     accentBadgeClass: 'bg-fuchsia-500/15 text-fuchsia-100 ring-fuchsia-400/28',
     eyebrowDotClass: 'bg-fuchsia-400',
-    listBulletClass: 'bg-fuchsia-300',
+    listBulletClass: 'bg-cyan-300',
     spotlightTintClass:
       'bg-[radial-gradient(circle_at_65%_28%, rgba(56,189,248,0.14), transparent_50%), radial-gradient(circle_at_18%_72%, rgba(232,121,249,0.12), transparent_46%)]',
     titleMarkClass: 'text-fuchsia-400',
@@ -233,6 +178,48 @@ const servicePillars: ServicePillar[] = [
     serviceEyebrowAccentClass: 'text-fuchsia-300 drop-shadow-[0_0_18px_rgba(232,121,249,0.35)]',
     spotlightTitle: 'Discreet intelligence in motion',
     spotlightDescription: 'Plain-clothes investigators monitor patterns, build evidence, and support targeted interventions.',
+  },
+  {
+    id: 2,
+    hashId: 'uniformed-guard-protection',
+    callout: 'Uniformed security',
+    title: 'Uniformed Guard Protection',
+    description:
+      'Tailored programs from static posts to patrol routes, built around your hours, hazards, and compliance needs.',
+    contentPosition: 'r',
+    image: security3,
+    imageAlt: 'Uniformed security field equipment and operational readiness tools',
+    accentBadgeClass: 'bg-amber-500/20 text-amber-100 ring-amber-400/35',
+    eyebrowDotClass: 'bg-amber-400',
+    listBulletClass: 'bg-cyan-300',
+    spotlightTintClass: 'bg-[radial-gradient(circle_at_28%_24%, rgba(251,191,36,0.12), transparent_50%)]',
+    titleMarkClass: 'text-amber-400 drop-shadow-[0_0_14px_rgba(251,191,36,0.35)]',
+    headingVariant: 'serviceDisplay',
+    serviceEyebrowAccentClass: 'text-amber-300 drop-shadow-[0_0_20px_rgba(251,191,36,0.35)]',
+    spotlightTitle: 'Core guard coverage',
+    spotlightDescription: 'Site-ready teams for entry points, patrol routes, incident response, and shift coverage.',
+  },
+  {
+    id: 3,
+    hashId: 'field-operations',
+    callout: 'Field-first response',
+    title: 'Teams where your risk is highest',
+    description:
+      'Drone, undercover, and uniformed coverage scales with your footprint, so investigations, patrols, and loss prevention stay aligned with real activity on the floor and at the perimeter.',
+    bullets: [
+      'Rapid coordination between LP, guards, and site leadership.',
+      'Clear reporting that supports audits and partner expectations.',
+    ],
+    contentPosition: 'l',
+    image: security1,
+    imageAlt: 'EIG security professional on site',
+    accentBadgeClass: 'bg-emerald-500/18 text-emerald-100 ring-emerald-400/30',
+    eyebrowDotClass: 'bg-emerald-400',
+    listBulletClass: 'bg-cyan-300',
+    spotlightTintClass: 'bg-[radial-gradient(circle_at_30%_22%, rgba(52,211,153,0.15), transparent_55%)]',
+    titleMarkClass: 'text-emerald-400',
+    spotlightTitle: 'Coordinated field operations',
+    spotlightDescription: 'Guard and LP teams share updates quickly so leadership gets fast, accurate operational visibility.',
   },
   {
     id: 4,
@@ -246,7 +233,7 @@ const servicePillars: ServicePillar[] = [
     imageAlt: 'Uniformed security presence at a partner site',
     accentBadgeClass: 'bg-orange-500/18 text-orange-100 ring-orange-400/32',
     eyebrowDotClass: 'bg-orange-400',
-    listBulletClass: 'bg-orange-300',
+    listBulletClass: 'bg-cyan-300',
     spotlightTintClass: 'bg-[radial-gradient(circle_at_72%_20%, rgba(251,146,60,0.14), transparent_52%)]',
     titleMarkClass: 'text-orange-400',
     spotlightTitle: 'Visible deterrence on site',
@@ -403,8 +390,8 @@ export default function Services() {
                 <div className="absolute -bottom-6 -left-6 hidden w-44 rounded-3xl border border-white/12 bg-white/8 px-4 py-3 backdrop-blur-2xl shadow-[0_26px_70px_rgba(0,0,0,0.9)] md:block md:w-56">
                   <div className="flex items-center justify-between text-xs text-slate-200/90">
                     <span className="uppercase tracking-[0.16em]">Flight Path</span>
-                    <span className="flex items-center gap-1 text-emerald-300">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
+                    <span className="flex items-center gap-1 text-cyan-300">
+                      <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" />
                       Live
                     </span>
                   </div>
@@ -493,7 +480,7 @@ export default function Services() {
                 <div className="mt-3 grid sm:grid-cols-2 lg:grid-cols-1 gap-2 text-sm text-slate-100/90">
                   {droneUseCases.map((item) => (
                     <div key={item} className="flex gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-300" />
+                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />
                       {item}
                     </div>
                   ))}
@@ -507,7 +494,7 @@ export default function Services() {
                 visual evidence and rapid response.
               </p>
               <p className="mt-2 text-sm text-slate-200/90 md:text-base">
-                Combined packages are available with uniformed security, weekly patrol flights, and unified
+                Combined packages are available with drone surveillance, undercover security, uniformed security, and unified
                 incident reporting.
               </p>
             </div>
@@ -568,9 +555,7 @@ export default function Services() {
                   transition={{ duration: 0.45, delay: i * 0.03, ease: easing }}
                   className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.04] p-3 shadow-[0_12px_40px_rgba(0,0,0,0.35)] transition-colors hover:border-cyan-300/25 hover:bg-white/[0.07]"
                 >
-                  <IconCheck
-                    className={`h-5 w-5 shrink-0 ${benefitCheckTones[i % benefitCheckTones.length]}`}
-                  />
+                  <IconCheck className="h-5 w-5 shrink-0 text-cyan-300" />
                   <p className="text-slate-100/95 text-sm leading-snug pt-0.5">{item}</p>
                 </motion.div>
               ))}

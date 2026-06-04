@@ -7,13 +7,13 @@ import slider1 from '../assets/slider1.png'
 import slider2 from '../assets/slider2.png'
 import slider3 from '../assets/slider3.png'
 
-const SLIDER_INTERVAL_MS = 6000
+const SLIDER_INTERVAL_MS = 12000
 const easing: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
 const eigDoItems = [
-  'Deploy uniformed security guards and mobile patrols based on your risk profile and hours of operation',
-  'Run undercover loss prevention programs to identify repeat patterns, recover assets, and reduce shrink',
   'Provide licensed drone surveillance for large sites, after-hours monitoring, and rapid incident visibility',
+  'Run undercover loss prevention programs to identify repeat patterns, recover assets, and reduce shrink',
+  'Deploy uniformed security guards and mobile patrols based on your risk profile and hours of operation',
   'Support private investigations for internal concerns, integrity issues, and evidence-based reporting',
   'Coordinate with site leadership and local authorities for escalation, documentation, and follow-through',
   'Deliver clear analytics and recurring reports so your team can track outcomes across all service areas',
@@ -23,7 +23,7 @@ const slides = [
   {
     id: 0,
     title: 'Who Are We',
-    content: `EIG is a fully licensed provider of uniformed security, undercover security, drone surveillance, and private investigations headquartered near Ottawa, serving small cities and towns across Ontario. We use a top-to-bottom, metrics-driven approach and align our team with yours to achieve your goals.
+    content: `EIG is a fully licensed provider of drone surveillance, undercover security, uniformed security, and private investigations headquartered near Ottawa, serving small cities and towns across Ontario. We use a top-to-bottom, metrics-driven approach and align our team with yours to achieve your goals.
 
 Our team is highly qualified, licensed and trained. We treat your business like our own and deliver a cutting-edge, community-centric operation. With over 200 apprehensions and 1000 preventions per officer per year, our recovery rate is 7x above the industry average.`,
     image: slider1,
@@ -32,14 +32,14 @@ Our team is highly qualified, licensed and trained. We treat your business like 
   {
     id: 1,
     title: 'Our Mission',
-    content: `EIG delivers innovative, reliable, and ethical protection programs across uniformed security, undercover security, drone surveillance, and private investigations. We guarantee excellence through dependable people and systems, and we remain committed to social responsibility while addressing the needs of all individuals involved in the incidents we handle.`,
+    content: `EIG delivers innovative, reliable, and ethical protection programs across drone surveillance, undercover security, uniformed security, and private investigations. We guarantee excellence through dependable people and systems, and we remain committed to social responsibility while addressing the needs of all individuals involved in the incidents we handle.`,
     image: slider2,
     cardClass: 'about-card-mission',
   },
   {
     id: 2,
     title: 'Quality Policy',
-    content: `EIG is committed to the highest degree of quality across uniformed security, undercover security, drone surveillance, and private investigations. We meet client expectations of performance, integrity, and delivery; provide practical service guidance; promote innovation and technology; invest in staff development; and maintain strong internal and external communication.`,
+    content: `EIG is committed to the highest degree of quality across drone surveillance, undercover security, uniformed security, and private investigations. We meet client expectations of performance, integrity, and delivery; provide practical service guidance; promote innovation and technology; invest in staff development; and maintain strong internal and external communication.`,
     image: slider3,
     cardClass: 'about-card-quality',
   },
@@ -106,7 +106,7 @@ export default function About() {
             className="max-w-md flex flex-col gap-4"
           >
             <p className="text-slate-200/90 text-sm md:text-base">
-              We provide uniformed security, undercover security, drone surveillance, and private investigations across Ontario. Our team delivers metrics-driven results with a community-centric approach, including a recovery rate 7x above the industry average.
+              We provide drone surveillance, undercover security, uniformed security, and private investigations across Ontario. Our team delivers metrics-driven results with a community-centric approach, including a recovery rate 7x above the industry average.
             </p>
             <Link
               to="/contact"

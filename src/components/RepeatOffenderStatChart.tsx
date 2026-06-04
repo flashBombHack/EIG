@@ -17,14 +17,14 @@ const easing: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
 /** Illustrative trend , narrative: programs drive repeat-offender share down under 1%. */
 const TREND = [
-  { t: 'Q1', pct: 3.4 },
-  { t: 'Q2', pct: 2.6 },
-  { t: 'Q3', pct: 2.1 },
-  { t: 'Q4', pct: 1.6 },
-  { t: 'Q5', pct: 1.2 },
-  { t: 'Q6', pct: 0.95 },
-  { t: 'Q7', pct: 0.82 },
-  { t: 'Q8', pct: 0.74 },
+  { t: 'Y1', pct: 3.4 },
+  { t: 'Y2', pct: 2.6 },
+  { t: 'Y3', pct: 2.1 },
+  { t: 'Y4', pct: 1.6 },
+  { t: 'Y5', pct: 1.2 },
+  { t: 'Y6', pct: 0.95 },
+  { t: 'Y7', pct: 0.82 },
+  { t: 'Y8', pct: 0.74 },
 ]
 
 const COMPARE = [

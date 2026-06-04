@@ -84,6 +84,17 @@ function App() {
       link: { to: '/services#drone-surveillance', label: 'View drone service details' },
     },
     {
+      id: 'undercover',
+      title: 'Undercover security',
+      items: [
+        'Undercover asset protection',
+        'Surveillance, apprehensions & trend intelligence',
+        'Employee, vendor & integrity-focused programs',
+        'Coordination with site leadership and authorities',
+      ],
+      link: { to: '/services#undercover-asset-protection', label: 'View undercover service details' },
+    },
+    {
       id: 'uniformed',
       title: 'Uniformed security',
       items: [
@@ -96,20 +107,9 @@ function App() {
       ],
       link: { to: '/services#uniformed-guard-protection', label: 'View uniformed service details' },
     },
-    {
-      id: 'undercover',
-      title: 'Undercover security',
-      items: [
-        'Undercover asset protection',
-        'Surveillance, apprehensions & trend intelligence',
-        'Employee, vendor & integrity-focused programs',
-        'Coordination with site leadership and authorities',
-      ],
-      link: { to: '/services#undercover-asset-protection', label: 'View undercover service details' },
-    },
   ] as const
 
-  const [openServiceId, setOpenServiceId] = useState<string | null>('uniformed')
+  const [openServiceId, setOpenServiceId] = useState<string | null>(null)
 
   return (
     <div className="min-h-screen bg-eig-bg text-white">
@@ -156,7 +156,7 @@ function App() {
                   variants={fadeUp}
                   className="text-sm sm:text-base text-slate-200/80 max-w-xl"
                 >
-                  EIG provides uniformed security, undercover security, and drone surveillance, plus private
+                  EIG provides drone surveillance, undercover security, and uniformed security, plus private
                   investigations across Ontario, with a community‑first approach to protecting your business.
                 </motion.p>
 
@@ -201,9 +201,9 @@ function App() {
                   <p className="text-xs font-medium uppercase tracking-[0.25em] text-slate-400">
                     Proven Results
                   </p>
-                  <p className="mt-3 text-4xl font-semibold text-white">3x</p>
+                  <p className="mt-3 text-4xl font-semibold text-white">7x</p>
                   <p className="mt-2 text-xs text-slate-300/90">
-                    Our recovery rate is over three times the industry average,
+                    Our recovery rate is 7x above the industry average,
                     with 200+ apprehensions and 1000+ preventions per officer
                     each year.
                   </p>
@@ -256,7 +256,7 @@ function App() {
               Layered protection for every site
             </h2>
             <p className="mt-4 text-sm text-slate-200/85 md:text-base">
-              Uniformed security, undercover security, and drone surveillance work as one system, so your
+              Drone surveillance, undercover security, and uniformed security work as one system, so your
               people, property, and profits stay protected end to end.
             </p>
           </motion.div>
@@ -499,7 +499,7 @@ function App() {
               <StatCount
                 num={200}
                 suffix="+"
-                subheading="Arrests per year across partner locations"
+                subheading="Arrests per officer per year across partner locations"
               />
               <StatCount
                 num={40}
@@ -508,8 +508,8 @@ function App() {
               />
               <StatCount
                 num={7}
-                suffix="/wk"
-                subheading="Coverage and response support available each week"
+                suffix="D/WK"
+                subheading="Coverage and response support available 7 days per week"
               />
             </div>
           </div>
@@ -537,8 +537,8 @@ function App() {
                 to on‑site protection
               </h2>
               <p className="text-sm md:text-base text-slate-100/85">
-                We combine uniformed security on the ground, undercover security and loss prevention intelligence,
-                and drone surveillance where it fits, so every site gets a clear, consistent presence.
+                We combine drone surveillance, undercover security and loss prevention intelligence,
+                and uniformed security on the ground, so every site gets a clear, consistent presence.
               </p>
             </div>
 

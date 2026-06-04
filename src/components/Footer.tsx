@@ -2,7 +2,8 @@ import { useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useAnimate, useDragControls, useMotionValue } from 'framer-motion'
 import useMeasure from 'react-use-measure'
-import logoWhite from '../assets/logo-white.png'
+import logoWhite from '../assets/logo-white-new.png'
+import { CLIENT_PORTAL_URL } from '../constants/site'
 
 type LegalDocType = 'terms' | 'privacy'
 
@@ -100,12 +101,12 @@ export default function Footer() {
                 <img
                   src={logoWhite}
                   alt="Exodus Investigators Group"
-                  className="h-14 w-auto"
+                  className="h-14 w-auto md:h-16"
                 />
               </div>
               <p className="text-sm text-slate-100/85">
                 Exodus Investigators Group backs retailers, construction partners, and organizations that
-                take loss prevention and safety seriously, with guard programs built for the real world.
+                take loss prevention and safety seriously, with drone, undercover, and uniformed programs built for real-world operations.
               </p>
               <Link
                 to="/contact"
@@ -130,9 +131,20 @@ export default function Footer() {
                 <Link to="/services" className="block text-left text-slate-100/85 hover:text-white">
                   Services
                 </Link>
+                <Link to="/careers" className="block text-left text-slate-100/85 hover:text-white">
+                  Careers
+                </Link>
                 <Link to="/contact" className="block text-left text-slate-100/85 hover:text-white">
                   Contact
                 </Link>
+                <a
+                  href={CLIENT_PORTAL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-left text-slate-100/85 hover:text-white"
+                >
+                  Client portal
+                </a>
               </div>
 
               <div className="space-y-2">
@@ -146,16 +158,19 @@ export default function Footer() {
                   Drone surveillance
                 </Link>
                 <Link
+                  to="/services#undercover-asset-protection"
+                  className="block text-left text-slate-100/85 hover:text-white"
+                >
+                  Undercover security
+                </Link>
+                <Link
                   to="/services#uniformed-guard-protection"
                   className="block text-left text-slate-100/85 hover:text-white"
                 >
                   Uniformed security
                 </Link>
-                <Link
-                  to="/services#undercover-asset-protection"
-                  className="block text-left text-slate-100/85 hover:text-white"
-                >
-                  Undercover security
+                <Link to="/contact" className="block text-left text-slate-100/85 hover:text-white">
+                  Private investigations
                 </Link>
               </div>
 
@@ -168,8 +183,8 @@ export default function Footer() {
                     info@exodusgroup.ca
                   </a>
                   <br />
-                  <a href="tel:+16135550199" className="hover:text-white transition-colors">
-                    (613) 555-0199
+                  <a href="tel:+16136899491" className="hover:text-white transition-colors">
+                    (613) 689-9491
                   </a>
                   <br />
                   Cornwall, Ontario, Canada
