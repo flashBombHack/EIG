@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import logoWhite from '../assets/logo-white-new.png'
-import { CLIENT_PORTAL_URL } from '../constants/site'
+// import { CLIENT_PORTAL_URL } from '../constants/site'
 
 const navItems = [
   { label: 'Home', path: '/' },
@@ -109,6 +109,7 @@ export default function SiteHeader({ scrollReactive = false }: SiteHeaderProps) 
           </nav>
 
           <div className="ml-auto flex shrink-0 items-center gap-2 md:gap-3">
+            {/* Client portal — hidden until portal URL is ready
             <a
               href={CLIENT_PORTAL_URL}
               target="_blank"
@@ -117,6 +118,7 @@ export default function SiteHeader({ scrollReactive = false }: SiteHeaderProps) 
             >
               Client Portal <span className="ml-1.5 text-base">↗</span>
             </a>
+            */}
             <Link
               to="/contact"
               className="hidden items-center rounded-full border border-white/30 bg-white text-slate-900 text-sm font-semibold px-4 py-2 shadow-sm shadow-white/30 hover:bg-slate-100 transition-colors md:inline-flex"
@@ -193,6 +195,7 @@ export default function SiteHeader({ scrollReactive = false }: SiteHeaderProps) 
                 ))}
               </nav>
               <div className="space-y-3 border-t border-white/10 p-5">
+                {/* Client portal — hidden until portal URL is ready
                 <a
                   href={CLIENT_PORTAL_URL}
                   target="_blank"
@@ -202,6 +205,7 @@ export default function SiteHeader({ scrollReactive = false }: SiteHeaderProps) 
                 >
                   Client Portal <span className="ml-2 text-base">↗</span>
                 </a>
+                */}
                 <Link
                   to="/contact"
                   onClick={() => setMenuOpen(false)}

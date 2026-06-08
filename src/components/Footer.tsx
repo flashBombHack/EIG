@@ -4,6 +4,7 @@ import { motion, useAnimate, useDragControls, useMotionValue } from 'framer-moti
 import useMeasure from 'react-use-measure'
 import logoWhite from '../assets/logo-white-new.png'
 import { CLIENT_PORTAL_URL } from '../constants/site'
+import SocialLinks from './SocialLinks'
 
 type LegalDocType = 'terms' | 'privacy'
 
@@ -189,17 +190,7 @@ export default function Footer() {
                   <br />
                   Cornwall, Ontario, Canada
                 </p>
-                <div className="flex items-center gap-3 pt-2">
-                  {['in', 'x', 'ig'].map((abbr) => (
-                    <button
-                      key={abbr}
-                      type="button"
-                      className="flex h-8 w-8 items-center justify-center rounded-full border border-white/35 bg-white/5 text-xs font-semibold uppercase tracking-wide text-slate-100/90 hover:bg-white/15 transition-colors"
-                    >
-                      {abbr}
-                    </button>
-                  ))}
-                </div>
+                <SocialLinks className="pt-2" />
               </div>
             </div>
           </div>
