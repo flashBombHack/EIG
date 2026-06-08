@@ -178,6 +178,7 @@ const servicePillars: ServicePillar[] = [
     serviceEyebrowAccentClass: 'text-fuchsia-300 drop-shadow-[0_0_18px_rgba(232,121,249,0.35)]',
     spotlightTitle: 'Discreet intelligence in motion',
     spotlightDescription: 'Plain-clothes investigators monitor patterns, build evidence, and support targeted interventions.',
+    imageFocusClass: 'scale-[1.14] object-cover object-[52%_46%]',
   },
   {
     id: 2,
@@ -198,6 +199,7 @@ const servicePillars: ServicePillar[] = [
     serviceEyebrowAccentClass: 'text-amber-300 drop-shadow-[0_0_20px_rgba(251,191,36,0.35)]',
     spotlightTitle: 'Core guard coverage',
     spotlightDescription: 'Site-ready teams for entry points, patrol routes, incident response, and shift coverage.',
+    imageFocusClass: 'scale-[1.12] object-cover object-[50%_40%]',
   },
   {
     id: 3,
@@ -220,6 +222,7 @@ const servicePillars: ServicePillar[] = [
     titleMarkClass: 'text-emerald-400',
     spotlightTitle: 'Coordinated field operations',
     spotlightDescription: 'Guard and LP teams share updates quickly so leadership gets fast, accurate operational visibility.',
+    imageFocusClass: 'scale-[1.12] object-cover object-[50%_36%]',
   },
   {
     id: 4,
@@ -238,6 +241,7 @@ const servicePillars: ServicePillar[] = [
     titleMarkClass: 'text-orange-400',
     spotlightTitle: 'Visible deterrence on site',
     spotlightDescription: 'Consistent presence at high-traffic zones helps prevent incidents before they escalate.',
+    imageFocusClass: 'scale-[1.1] object-cover object-[48%_42%]',
   },
 ]
 

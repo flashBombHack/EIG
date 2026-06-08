@@ -31,6 +31,8 @@ export type ServicePillar = {
   /** Optional overlay text used only in sticky/mobile image panel. */
   spotlightTitle?: string
   spotlightDescription?: string
+  /** Tailwind classes to crop/zoom the photo inside the frame (e.g. scale + object-position). */
+  imageFocusClass?: string
 }
 
 type SlidingPanelProps = {
@@ -46,81 +48,80 @@ const MD_MIN = '(min-width: 768px)'
 
 const IO_THRESHOLDS = [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.7, 0.85, 1]
 
+const DEFAULT_IMAGE_FOCUS = 'scale-[1.1] object-cover object-center'
+
 function PillarVisual({ featureInView }: SlidingPanelProps) {
   return (
-    <div className="relative h-80 w-full overflow-hidden rounded-2xl border border-white/10 bg-slate-950 shadow-[0_28px_90px_rgba(0,0,0,0.65)] md:h-[22rem]">
-      <AnimatePresence initial={false} mode="sync">
-        <motion.div
-          key={featureInView.id}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0"
-        >
-          <img
-            src={featureInView.image}
-            alt={featureInView.imageAlt}
-            className="h-full w-full object-cover opacity-[0.42] md:opacity-[0.48]"
-          />
-        </motion.div>
-      </AnimatePresence>
+    <figure className="w-full overflow-hidden rounded-3xl border border-white/12 bg-slate-950 shadow-[0_32px_100px_rgba(0,0,0,0.55)]">
+      <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-[16/10]">
+        <AnimatePresence initial={false} mode="sync">
+          <motion.div
+            key={featureInView.id}
+            initial={{ opacity: 0, scale: 1.03 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0 overflow-hidden"
+          >
+            <img
+              src={featureInView.image}
+              alt={featureInView.imageAlt}
+              className={`h-full w-full ${featureInView.imageFocusClass ?? DEFAULT_IMAGE_FOCUS}`}
+            />
+          </motion.div>
+        </AnimatePresence>
+        <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10" />
+      </div>
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/82 to-slate-950/35" />
-      <div className={`pointer-events-none absolute inset-0 ${featureInView.spotlightTintClass}`} />
-
-      <div className="relative flex h-full flex-col justify-end p-5 pb-6 md:p-7 md:pb-8">
+      <figcaption className="border-t border-white/10 bg-gradient-to-br from-slate-950/98 via-slate-950/95 to-slate-900/90 px-5 py-4 backdrop-blur-sm md:px-6 md:py-5">
         <AnimatePresence initial={false} mode="wait">
           <motion.div
             key={featureInView.id}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
+            exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="space-y-3"
+            className="space-y-2"
           >
             {featureInView.headingVariant === 'serviceDisplay' &&
             featureInView.serviceEyebrowAccentClass ? (
-              <>
-                <p className="font-display text-[0.65rem] font-extrabold uppercase leading-none tracking-[0.24em] text-white/95 sm:text-xs md:text-sm">
-                  <span className={featureInView.serviceEyebrowAccentClass}>{featureInView.callout}</span>
-                  <span className="text-amber-300/90"> · </span>
-                  <span className="text-slate-200/90">
-                    {featureInView.serviceEyebrowSuffix ?? 'services'}
-                  </span>
-                </p>
-                <p className="font-display text-2xl font-bold leading-[1.08] tracking-tight text-white md:text-3xl lg:text-[2.15rem] lg:leading-snug">
-                  {featureInView.spotlightTitle ?? featureInView.title}
-                </p>
-              </>
+              <p className="font-display text-[0.65rem] font-extrabold uppercase leading-none tracking-[0.24em] text-white/95 sm:text-xs">
+                <span className={featureInView.serviceEyebrowAccentClass}>{featureInView.callout}</span>
+                <span className="text-amber-300/90"> · </span>
+                <span className="text-slate-200/90">
+                  {featureInView.serviceEyebrowSuffix ?? 'services'}
+                </span>
+              </p>
             ) : (
-              <>
-                <div className="flex items-center gap-2 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-slate-200/85 md:text-xs">
-                  <span className={`h-1.5 w-1.5 rounded-full ${featureInView.eyebrowDotClass}`} />
-                  <span>{featureInView.callout}</span>
-                </div>
-                <p className="text-2xl font-semibold leading-tight tracking-tight text-white md:text-3xl lg:text-[1.75rem] lg:leading-snug">
-                  {featureInView.spotlightTitle ?? featureInView.title}
-                </p>
-              </>
+              <div className="flex items-center gap-2 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-slate-200/85 sm:text-xs">
+                <span className={`h-1.5 w-1.5 rounded-full ${featureInView.eyebrowDotClass}`} />
+                <span>{featureInView.callout}</span>
+              </div>
             )}
-            <p className="max-w-md text-sm leading-relaxed text-slate-200/90 line-clamp-4 md:text-[0.95rem] md:leading-relaxed">
+            <p className="font-display text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
+              {featureInView.spotlightTitle ?? featureInView.title}
+            </p>
+            <p className="text-sm leading-relaxed text-slate-300/95 md:text-[0.95rem]">
               {featureInView.spotlightDescription ?? featureInView.description}
             </p>
           </motion.div>
         </AnimatePresence>
-      </div>
-    </div>
+      </figcaption>
+    </figure>
   )
 }
 
-function SlidingPillarDisplay({ featureInView }: SlidingPanelProps) {
+function SlidingPillarDisplay({
+  featureInView,
+  activeIndex,
+  total,
+}: SlidingPanelProps & { activeIndex: number; total: number }) {
   return (
     <div
       style={{
         justifyContent: featureInView.contentPosition === 'l' ? 'flex-end' : 'flex-start',
       }}
-      className="pointer-events-none sticky top-0 z-10 hidden h-screen w-full items-center justify-center md:flex"
+      className="pointer-events-none sticky top-28 z-10 hidden h-[calc(100vh-7rem)] w-full items-center justify-center md:top-32 md:flex md:h-[calc(100vh-8rem)]"
     >
       <motion.div
         layout="position"
@@ -129,9 +130,19 @@ function SlidingPillarDisplay({ featureInView }: SlidingPanelProps) {
           stiffness: 380,
           damping: 30,
         }}
-        className="h-fit w-[min(100%,42rem)] px-3 md:w-3/5 md:px-4 lg:px-5"
+        className="h-fit w-[min(100%,46rem)] px-3 md:w-[58%] md:px-4 lg:px-5"
       >
         <PillarVisual featureInView={featureInView} />
+        <div className="mt-4 flex items-center justify-center gap-2" aria-hidden>
+          {Array.from({ length: total }, (_, i) => (
+            <span
+              key={i}
+              className={`h-1 rounded-full transition-all duration-300 ${
+                i === activeIndex ? 'w-8 bg-cyan-300' : 'w-2 bg-white/20'
+              }`}
+            />
+          ))}
+        </div>
       </motion.div>
     </div>
   )
@@ -149,6 +160,16 @@ function PillarContent({ registerRef, pillarIndex, ...featureInView }: ContentPr
       }}
     >
       <div className="grid h-full min-h-0 w-full place-content-center px-4 py-10 sm:px-5 md:w-2/5 md:px-5 md:py-12">
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-8 block md:hidden"
+        >
+          <PillarVisual featureInView={featureInView} />
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -228,16 +249,6 @@ function PillarContent({ registerRef, pillarIndex, ...featureInView }: ContentPr
               ))}
             </ul>
           ) : null}
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-10 block md:hidden"
-        >
-          <PillarVisual featureInView={featureInView} />
         </motion.div>
       </div>
     </div>
@@ -331,20 +342,43 @@ export default function ServicePillarShowcase({ pillars }: { pillars: readonly S
 
   return (
     <section className="relative mx-auto max-w-6xl" aria-label="Service pillars">
-      <div className="px-4 pb-4 pt-3 sm:px-5 md:pb-5 md:pt-4">
-        <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">
-          <span className="h-1.5 w-1.5 rounded-full bg-amber-400" aria-hidden />
-          How we partner with you
-        </p>
-        <h2 className="mt-2 max-w-2xl text-2xl font-semibold tracking-tight text-white md:text-3xl">
-          Scroll through each service area and the preview updates as you go.
-        </h2>
-        <p className="mt-2 max-w-xl text-sm text-slate-400 md:text-base">
-          On larger screens, the spotlight panel stays pinned while copy highlights one program at a time.
-        </p>
+      <div className="px-4 pb-8 pt-2 sm:px-5 md:pb-10 md:pt-4">
+        <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-950/90 via-slate-950/70 to-slate-950/40 p-5 shadow-[0_28px_90px_rgba(2,8,23,0.55)] md:p-6">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-3xl"
+          >
+            <p className="font-display text-sm font-extrabold uppercase leading-none tracking-[0.28em] md:text-base">
+              <span className="text-cyan-300 drop-shadow-[0_0_20px_rgba(34,211,238,0.35)]">How we partner</span>
+              <span className="text-amber-300/95"> · </span>
+              <span className="text-slate-100/90">with you</span>
+            </p>
+            <h2 className="mt-3 font-display text-4xl font-bold leading-[1.08] tracking-tight text-white md:mt-4 md:text-5xl lg:text-[3.35rem]">
+              One coordinated team for your site
+            </h2>
+            <p className="mt-3 text-sm font-medium leading-relaxed text-slate-200/90 md:mt-4 md:text-base">
+              Every program starts with your property, hours, and risk profile. From drone surveillance and
+              undercover security to uniformed guard coverage, EIG builds protection that deters loss, supports
+              your staff, and keeps leadership informed.
+            </p>
+            <ul className="mt-5 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-200/90 md:text-[0.7rem]">
+              {['Drone surveillance', 'Undercover security', 'Uniformed security'].map((label) => (
+                <li
+                  key={label}
+                  className="rounded-full border border-white/12 bg-white/[0.05] px-3 py-1.5"
+                >
+                  {label}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        </div>
       </div>
 
-      <SlidingPillarDisplay featureInView={featureInView} />
+      <SlidingPillarDisplay featureInView={featureInView} activeIndex={activeIndex} total={pillars.length} />
 
       <div className="-mt-[100vh] hidden md:block" aria-hidden />
 
