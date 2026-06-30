@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import security1 from '../assets/security1.jpeg'
 import Footer from '../components/Footer'
+import JobListingSection from '../components/JobListingSection'
 import JotFormEmbed from '../components/JotFormEmbed'
 import SiteHeader from '../components/SiteHeader'
 
@@ -85,10 +86,13 @@ export default function Careers() {
               </div>
             </motion.div>
 
+            <JobListingSection />
+
             <motion.div
+              id="job-application"
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1, ease: easing }}
+              transition={{ duration: 0.7, delay: 0.12, ease: easing }}
               className="rounded-3xl border border-white/10 bg-slate-900/50 shadow-[0_35px_90px_rgba(0,0,0,0.45)] backdrop-blur-xl"
             >
               <div className="border-b border-white/10 px-5 py-5 text-center md:px-8 md:py-6">
