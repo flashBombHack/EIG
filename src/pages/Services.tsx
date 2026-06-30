@@ -11,6 +11,7 @@ import ServicePillarShowcase, { type ServicePillar } from '../components/Service
 import SiteHeader from '../components/SiteHeader'
 
 const RepeatOffenderStatChart = lazy(() => import('../components/RepeatOffenderStatChart'))
+const LpRoiStatsCharts = lazy(() => import('../components/LpRoiStatsCharts'))
 
 const easing: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -511,8 +512,24 @@ export default function Services() {
 
         <section
           id="lp-performance-intelligence"
+          className={`${pageShell} mb-10 scroll-mt-28 md:mb-12 md:scroll-mt-32`}
+          aria-label="Loss prevention ROI metrics"
+        >
+          <Suspense
+            fallback={
+              <div
+                className="h-80 animate-pulse rounded-3xl border border-white/10 bg-white/[0.04]"
+                aria-hidden
+              />
+            }
+          >
+            <LpRoiStatsCharts />
+          </Suspense>
+        </section>
+
+        <section
           className={`${pageShell} mb-16 scroll-mt-28 md:mb-20 md:scroll-mt-32`}
-          aria-label="Loss prevention performance metrics"
+          aria-label="Loss prevention recidivism metrics"
         >
           <Suspense
             fallback={

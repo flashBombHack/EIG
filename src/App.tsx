@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { animate, motion, useInView } from 'framer-motion'
 import heroBg from './assets/hero-bg.png'
@@ -6,6 +6,8 @@ import security3 from './assets/security3.jpeg'
 import secondSectionBg from './assets/second-section-BG.png'
 import Footer from './components/Footer'
 import SiteHeader from './components/SiteHeader'
+
+const LpRoiStatsCharts = lazy(() => import('./components/LpRoiStatsCharts'))
 
 const easing: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -483,6 +485,21 @@ function App() {
             </p>
           </div>
         </motion.div>
+
+        <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-10">
+          <div className="mt-10 md:mt-14">
+            <Suspense
+              fallback={
+                <div
+                  className="h-80 animate-pulse rounded-3xl border border-white/10 bg-white/[0.04]"
+                  aria-hidden
+                />
+              }
+            >
+              <LpRoiStatsCharts />
+            </Suspense>
+          </div>
+        </div>
 
         <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-10">
           <div className="mt-12 border-t border-white/10 pt-10 md:mt-16 md:pt-14">
