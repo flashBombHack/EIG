@@ -1,6 +1,6 @@
-export const lossPreventionOfficerJob = {
-  id: 'loss-prevention-officer',
-  title: 'Loss Prevention Officer',
+export const undercoverSecurityOfficerJob = {
+  id: 'undercover-security-officer',
+  title: 'Undercover Security Officer',
   company: 'Exodus Investigators Group',
   location: 'SDG County · In person',
   pay: 'CA$17.60 – CA$22.00 per hour',
@@ -8,7 +8,7 @@ export const lossPreventionOfficerJob = {
   jobTypes: ['Full-time', 'Part-time', 'Permanent'],
   schedule: ['Day shift', 'Holidays', 'On call', 'Weekends as needed'],
   tags: ['Paid training', 'Performance bonuses', 'Growth opportunities'],
-  intro: `Come work at Exodus Investigators Group, a professional leading security and investigations firm in the SDG County. We are looking to hire a Loss Prevention Officer. If you're hard-working and dedicated, Exodus is an ideal place to get ahead in your law enforcement career. This is an action filled position. We train you and pay you!
+  intro: `Come work at Exodus Investigators Group, a professional leading security and investigations firm in the SDG County. We are looking to hire an Undercover Security Officer. If you're hard-working and dedicated, Exodus is an ideal place to get ahead in your law enforcement career. This is an action filled position. We train you and pay you!
 
 At Exodus you are more than just a number!`,
   responsibilities: [
@@ -39,7 +39,7 @@ At Exodus you are more than just a number!`,
   requirements: [
     'Ontario Security Guard License or Dual License',
     'Recent background check or willing to complete a new one',
-    'Prior experience in loss prevention or educational background in loss prevention, security or law enforcement NOT required but preferred',
+    'Prior experience in undercover security or educational background in undercover security, loss prevention, security or law enforcement NOT required but preferred',
     '1–3 years retail experience NOT required but preferred',
     'Must be able to work a flexible and dynamic schedule including weekends',
     'Trained in CPR and first aid',
@@ -57,7 +57,7 @@ At Exodus you are more than just a number!`,
   benefitsList: ['Casual dress', 'Wellness program'],
   languageNote: 'French not required',
   applicationQuestions: ['Are you on a student visa or work permit?'],
-  experience: [{ label: 'Loss prevention', detail: '1 year (preferred)' }],
+  experience: [{ label: 'Undercover security', detail: '1 year (preferred)' }],
   language: [{ label: 'English', detail: 'required' }],
   licenses: [
     { label: 'Ontario Security Guard License', detail: 'required' },
@@ -65,4 +65,4 @@ At Exodus you are more than just a number!`,
   ],
 } as const
 
-export type JobListing = typeof lossPreventionOfficerJob
+export type JobListing = typeof undercoverSecurityOfficerJob

@@ -1,7 +1,8 @@
 import { useEffect, useId, useRef } from 'react'
 
-/** JotForm job application — submissions are handled by JotForm (no site SMTP required). */
+/** JotForm IDs — submissions handled by JotForm (no site SMTP required). */
 export const JOTFORM_CAREERS_FORM_ID = '261696912615061'
+export const JOTFORM_CONTACT_FORM_ID = '261807719836065'
 
 const EMBED_HANDLER_SRC = 'https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'
 

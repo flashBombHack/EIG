@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import security2 from '../assets/security2.jpeg'
 import Footer from '../components/Footer'
+import JotFormEmbed, { JOTFORM_CONTACT_FORM_ID } from '../components/JotFormEmbed'
 import SiteHeader from '../components/SiteHeader'
 
 const easing: [number, number, number, number] = [0.16, 1, 0.3, 1]
@@ -10,7 +11,7 @@ export default function Contact() {
     <div className="min-h-screen bg-eig-bg text-white">
       <SiteHeader />
 
-      <main className="pt-36 md:pt-44 pb-20">
+      <main className="pb-20 pt-36 md:pt-44">
         <section className="relative px-6 md:px-10">
           <div className="absolute inset-0 -z-10">
             <div
@@ -28,98 +29,74 @@ export default function Contact() {
               transition={{ duration: 0.7, ease: easing }}
               className="mb-10 md:mb-12"
             >
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300/90">
-                Contact Us
-              </p>
-              <h1 className="mt-3 text-3xl md:text-5xl font-semibold tracking-tight text-white max-w-3xl">
-                Get a free estimate for drone surveillance, undercover security, uniformed security, or investigations.
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300/90">Contact Us</p>
+              <h1 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-white md:text-5xl">
+                Get a free estimate for drone surveillance, undercover security, uniformed security, or
+                investigations.
               </h1>
-              <p className="mt-4 max-w-2xl text-sm md:text-base text-slate-200/85">
-                Tell us what you need and our team will build a tailored plan for your site, schedule, and risk profile.
+              <p className="mt-4 max-w-2xl text-sm text-slate-200/85 md:text-base">
+                Tell us what you need and our team will build a tailored plan for your site, schedule, and risk
+                profile.
               </p>
             </motion.div>
 
-            <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] items-stretch">
+            <div className="grid items-start gap-8 lg:grid-cols-[1.05fr_0.95fr]">
               <motion.div
                 initial={{ opacity: 0, y: 35 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.05, ease: easing }}
-                className="rounded-3xl border border-white/10 bg-slate-900/65 backdrop-blur-xl p-6 md:p-8 shadow-[0_35px_90px_rgba(0,0,0,0.45)]"
+                className="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/65 shadow-[0_35px_90px_rgba(0,0,0,0.45)] backdrop-blur-xl"
               >
-                <h2 className="text-2xl md:text-3xl font-semibold text-white">Get Free Estimation</h2>
-                <form className="mt-6 space-y-4">
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <input
-                      type="text"
-                      placeholder="First Name"
-                      className="h-12 rounded-xl border border-white/10 bg-slate-900/70 px-4 text-sm text-white placeholder:text-slate-400/90 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Last Name"
-                      className="h-12 rounded-xl border border-white/10 bg-slate-900/70 px-4 text-sm text-white placeholder:text-slate-400/90 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
-                    />
-                  </div>
-                  <input
-                    type="email"
-                    placeholder="Email Address"
-                    className="h-12 w-full rounded-xl border border-white/10 bg-slate-900/70 px-4 text-sm text-white placeholder:text-slate-400/90 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
+                <div className="border-b border-white/10 px-6 py-5 md:px-8 md:py-6">
+                  <h2 className="text-2xl font-semibold text-white md:text-3xl">Get free estimation</h2>
+                  <p className="mt-2 text-sm text-slate-300/90">
+                    Complete the form below and our team will follow up with a tailored quote. Submissions are
+                    handled securely through our contact form.
+                  </p>
+                </div>
+                <div className="bg-white px-3 py-4 md:px-5 md:py-6">
+                  <JotFormEmbed
+                    formId={JOTFORM_CONTACT_FORM_ID}
+                    title="Contact and estimate request form"
                   />
-                  <input
-                    type="tel"
-                    placeholder="Phone Number"
-                    className="h-12 w-full rounded-xl border border-white/10 bg-slate-900/70 px-4 text-sm text-white placeholder:text-slate-400/90 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
-                  />
-                  <select
-                    defaultValue=""
-                    className="h-12 w-full rounded-xl border border-white/10 bg-slate-900/70 px-4 text-sm text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
-                  >
-                    <option value="" disabled className="text-slate-400">
-                      Service you are getting in touch for
-                    </option>
-                    <option value="drone-surveillance">Drone surveillance</option>
-                    <option value="undercover-security">Undercover security</option>
-                    <option value="uniformed-security">Uniformed security</option>
-                    <option value="private-investigations">Private investigations</option>
-                    <option value="combined-services">Combined service package</option>
-                  </select>
-                  <textarea
-                    placeholder="Message"
-                    rows={4}
-                    className="w-full rounded-xl border border-white/10 bg-slate-900/70 px-4 py-3 text-sm text-white placeholder:text-slate-400/90 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
-                  />
-                  <button
-                    type="button"
-                    className="inline-flex h-12 items-center justify-center rounded-xl bg-cyan-600 px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(8,145,178,0.45)] hover:bg-cyan-500 transition-colors"
-                  >
-                    Get A Quote
-                  </button>
-                </form>
+                </div>
               </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, y: 35 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.1, ease: easing }}
-                className="rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-lg p-6 md:p-8 flex flex-col justify-between shadow-[0_24px_70px_rgba(0,0,0,0.35)]"
+                className="flex flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.03] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.35)] backdrop-blur-lg md:p-8 lg:sticky lg:top-32"
               >
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300/90">Address</p>
-                  <h2 className="mt-2 text-3xl md:text-4xl font-semibold text-white">Contact Details</h2>
+                  <h2 className="mt-2 text-3xl font-semibold text-white md:text-4xl">Contact details</h2>
                 </div>
 
                 <div className="mt-8 space-y-5">
                   <div className="flex gap-3 text-slate-200/90">
                     <span className="mt-1 text-cyan-300">•</span>
-                    <p className="text-base md:text-lg">2855 Marleau Ave, Unit B, Cornwall, ON, K6H 7B6, Canada</p>
+                    <p className="text-base md:text-lg">
+                      2855 Marleau Ave, Unit B, Cornwall, ON, K6H 7B6, Canada
+                    </p>
                   </div>
                   <div className="flex gap-3 text-slate-200/90">
                     <span className="mt-1 text-cyan-300">✉</span>
-                    <p className="text-base md:text-lg">info@exodusgroup.ca</p>
+                    <a
+                      href="mailto:info@exodusgroup.ca"
+                      className="text-base md:text-lg hover:text-cyan-200 transition-colors"
+                    >
+                      info@exodusgroup.ca
+                    </a>
                   </div>
                   <div className="flex gap-3 text-slate-200/90">
                     <span className="mt-1 text-cyan-300">☎</span>
-                    <a href="tel:+16136899491" className="text-base md:text-lg hover:text-cyan-200 transition-colors">(613) 689-9491</a>
+                    <a
+                      href="tel:+16136899491"
+                      className="text-base md:text-lg hover:text-cyan-200 transition-colors"
+                    >
+                      (613) 689-9491
+                    </a>
                   </div>
                 </div>
 

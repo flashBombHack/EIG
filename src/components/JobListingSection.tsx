@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { lossPreventionOfficerJob, type JobListing } from '../data/careersJobs'
+import { undercoverSecurityOfficerJob, type JobListing } from '../data/careersJobs'
 
 const easing: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -194,7 +194,7 @@ function JobListingModal({
   )
 }
 
-export default function JobListingSection({ job = lossPreventionOfficerJob }: JobListingSectionProps) {
+export default function JobListingSection({ job = undercoverSecurityOfficerJob }: JobListingSectionProps) {
   const [open, setOpen] = useState(false)
 
   const scrollToApplication = () => {
@@ -241,8 +241,8 @@ export default function JobListingSection({ job = lossPreventionOfficerJob }: Jo
               </h2>
               <p className="mt-1 text-sm text-slate-300/90">{job.company} · {job.location}</p>
               <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-slate-400/95">
-                Action-filled LP role in SDG County. Paid training, performance bonuses, and a path toward law
-                enforcement — no prior security experience required.
+                Action-filled undercover security role in SDG County. Paid training, performance bonuses, and a
+                path toward law enforcement — no prior security experience required.
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 <span className="text-sm font-semibold text-emerald-300/95">{job.pay}</span>
